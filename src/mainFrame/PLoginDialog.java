@@ -26,6 +26,7 @@ public class PLoginDialog extends JDialog {
 	private JButton okButton;
 	private JButton cancelButton;
 	
+	private ActionHandler actionHandler;
 	
 	public PLoginDialog() {
 		this.setLocationRelativeTo(null);
@@ -36,31 +37,39 @@ public class PLoginDialog extends JDialog {
 		
 		JPanel line1 = new JPanel();
 			this.userIdLabel = new JLabel(ELoginDialog.nameLabel.getText());
-			line1.add(this.userIdLabel);		
 			this.userIdtextField = new JTextField(ELoginDialog.sizeNameText.getInt());
+			line1.add(this.userIdLabel);		
 			line1.add(this.userIdtextField);
 		this.add(line1);
 		
 		JPanel line2 = new JPanel();
 			this.passwordLabel = new JLabel(ELoginDialog.passwordLabel.getText());
-			line2.add(this.passwordLabel);		
 			this.passwordTextField = new JTextField(ELoginDialog.sizePasswordText.getInt());
+			line2.add(this.passwordLabel);		
 			line2.add(this.passwordTextField);
 		this.add(line2);
 		
 		JPanel line3 = new JPanel();
 			this.okButton = new JButton(ELoginDialog.okButtonLabel.getText());
-			line3.add(this.okButton);	
 			this.cancelButton = new JButton(ELoginDialog.cancelButtonLabel.getText());
-			line3.add(this.cancelButton);
-			this.add(line3);
 			
-//			this.okButton.addActionListener(actionHandler);
+			this.okButton.addActionListener(this.actionHandler);
+//			this.okButton.addActionListener(new ActionListener() {
+//				
+//				@Override
+//				public void actionPerformed(ActionEvent e) {
+//					System.out.println("1");
+//					
+//				}
+//			});
+			this.cancelButton.addActionListener(this.actionHandler);
 			this.okButton.setActionCommand(this.okButton.getText());
-//			this.cancelButton.addActionListener(actionHandler);
 			this.cancelButton.setActionCommand(this.cancelButton.getText());
 			
-	
+			line3.add(this.okButton);	
+			line3.add(this.cancelButton);
+		this.add(line3);
+
 	}
 	
 	private void validateUser() {
@@ -76,5 +85,16 @@ public class PLoginDialog extends JDialog {
 		}
 	}
 	
-
+	private class ActionHandler implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent event) {
+			System.out.println("1");
+			if (event.getActionCommand().equals(okButton.getText())) {
+				System.out.println("2");
+				validateUser();
+			}	
+		}		
+	}
+	
 }
+

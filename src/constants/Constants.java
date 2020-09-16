@@ -5,9 +5,9 @@ public class Constants {
 	public enum ELoginDialog {
 		width("300"),
 		height("200"),
-		nameLabel(" 아이디   "),
+		nameLabel("ID "),
 		sizeNameText("10"),
-		passwordLabel("비밀번호"),
+		passwordLabel("PW "),
 		sizePasswordText("10"),
 		okButtonLabel("ok"),
 		cancelButtonLabel("cancel");
@@ -40,8 +40,8 @@ public class Constants {
 	}
 	
 	public enum EMenuBar {
-		FILE("파일"),
-		EDIT("편집");
+		FILE("FILE"),
+		EDIT("EDIT");
 		
 		private String text;
 		
@@ -54,12 +54,12 @@ public class Constants {
 	}
 	
 	public enum EFileMenu {
-		NEW("생성"),
-		OPEN("열기"),
-		SAVE("저장"),
-		SAVEAS("다른이름으로"),
-		PRINT("프린트"),
-		EXIT("종료");
+		NEW("NEW"),
+		OPEN("OPEN"),
+		SAVE("SAVE"),
+		SAVEAS("SAVE-AS"),
+		PRINT("PRINT"),
+		EXIT("EXIT");
 		
 		private String text;
 		
@@ -72,10 +72,10 @@ public class Constants {
 	}
 	
 	public enum EEditMenu {
-		COPY("복사"),
-		CUT("자르기"),
-		PASTE("붙여넣기"),
-		DELETE("삭제");
+		COPY("COPY"),
+		CUT("CUT"),
+		PASTE("PASTE"),
+		DELETE("DELETE");
 		
 		private String text;
 		
@@ -88,10 +88,10 @@ public class Constants {
 	}
 	
 	public enum EToolBar{
-		Miridamgi("미리담기", "data/미리담기.png"),
-		Sugangsincheong("수강신청", "data/수강신청.png"),
-		PersonalInfo("개인정보", "data/개인정보.png"),
-		Grade("성적", "data/성적.png");
+		BASKET("BASKET", "data/BASKET.png"),
+		ENROLLMENT("actionHandler", "data/ENROLLMENT.png"),
+		PERSONAL("PERSONAL", "data/PERSONAL.png"),
+		GRADE("GRADE", "data/GRADE.png");
 		
 		
 		private String text;
