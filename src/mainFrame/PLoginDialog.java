@@ -27,7 +27,7 @@ public class PLoginDialog extends JDialog {
 	private JButton cancelButton;
 	
 	
-	public PLoginDialog(ActionHandler actionHandler) {
+	public PLoginDialog( ActionHandler actionHandler) {
 		this.setLocationRelativeTo(null);
 		this.setSize(ELoginDialog.width.getInt(), ELoginDialog.height.getInt());
 		this.setResizable(false);
