@@ -27,7 +27,7 @@ public class PLoginDialog extends JDialog {
 	private JButton cancelButton;
 	
 	
-	public PLoginDialog( ActionHandler actionHandler) {
+	public PLoginDialog() {
 		this.setLocationRelativeTo(null);
 		this.setSize(ELoginDialog.width.getInt(), ELoginDialog.height.getInt());
 		this.setResizable(false);
@@ -55,9 +55,9 @@ public class PLoginDialog extends JDialog {
 			line3.add(this.cancelButton);
 			this.add(line3);
 			
-			this.okButton.addActionListener(actionHandler);
+//			this.okButton.addActionListener(actionHandler);
 			this.okButton.setActionCommand(this.okButton.getText());
-			this.cancelButton.addActionListener(actionHandler);
+//			this.cancelButton.addActionListener(actionHandler);
 			this.cancelButton.setActionCommand(this.cancelButton.getText());
 			
 	

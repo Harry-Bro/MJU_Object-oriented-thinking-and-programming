@@ -6,11 +6,11 @@ import java.awt.event.ActionListener;
 public class Main {
 
 	public static void main(String[] args) {
-		//test2
-		ActionHandler actionHandler = new ActionHandler();
+
+//		ActionHandler actionHandler = new ActionHandler();
 	
 		
-		PLoginDialog pLoginDialog = new PLoginDialog(actionHandler);
+		PLoginDialog pLoginDialog = new PLoginDialog();
 		pLoginDialog.setVisible(true);
 		
 		// memory allocation
@@ -20,14 +20,14 @@ public class Main {
 	}
 	
 	
-	private class ActionHandler implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent event) {
-			if (event.getActionCommand().equals(okButton.getText())) {
-				validateUser();
-			}	
-		}		
-	}
+//	private class ActionHandler implements ActionListener {
+//		@Override
+//		public void actionPerformed(ActionEvent event) {
+//			if (event.getActionCommand().equals(okButton.getText())) {
+//				validateUser();
+//			}	
+//		}		
+//	}
 	
 }
 
