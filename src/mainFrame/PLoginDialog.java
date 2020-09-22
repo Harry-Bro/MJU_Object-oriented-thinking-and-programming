@@ -26,9 +26,12 @@ public class PLoginDialog extends JDialog {
 	private JButton okButton;
 	private JButton cancelButton;
 	
-	private ActionHandler actionHandler;
 	
-	public PLoginDialog() {
+	
+	public PLoginDialog(Main.ActionHandler actionHandler) {
+		
+	
+		
 		this.setLocationRelativeTo(null);
 		this.setSize(ELoginDialog.width.getInt(), ELoginDialog.height.getInt());
 		this.setResizable(false);
@@ -53,16 +56,8 @@ public class PLoginDialog extends JDialog {
 			this.okButton = new JButton(ELoginDialog.okButtonLabel.getText());
 			this.cancelButton = new JButton(ELoginDialog.cancelButtonLabel.getText());
 			
-			this.okButton.addActionListener(this.actionHandler);
-//			this.okButton.addActionListener(new ActionListener() {
-//				
-//				@Override
-//				public void actionPerformed(ActionEvent e) {
-//					System.out.println("1");
-//					
-//				}
-//			});
-			this.cancelButton.addActionListener(this.actionHandler);
+			this.okButton.addActionListener(actionHandler);
+			this.cancelButton.addActionListener(actionHandler);
 			this.okButton.setActionCommand(this.okButton.getText());
 			this.cancelButton.setActionCommand(this.cancelButton.getText());
 			
@@ -72,28 +67,25 @@ public class PLoginDialog extends JDialog {
 
 	}
 	
-	private void validateUser() {
-		CLogin cLogin = new CLogin();
-		VLogin vLogin = new VLogin(this.userIdtextField.getText(), this.passwordTextField.getText());		
-		boolean bLoginSuccess = cLogin.validate(vLogin);
-		if (bLoginSuccess) {
-			CUser cUser = new CUser();
-			VUser vUser = cUser.getUser(vLogin.getUserId());
-			PMainFrame pMainFrame = new PMainFrame(vUser);
-			pMainFrame.setVisible(true);
-			dispose();				
+	public VUser validateUser(String actionCommand) {
+		VUser vUser = null;
+		if (actionCommand.contentEquals(this.okButton.getText())) {
+			VLogin vLogin = new VLogin(this.userIdtextField.getText(), this.passwordTextField.getText());		
+			CLogin cLogin = new CLogin();
+			boolean bLoginSuccess = cLogin.validate(vLogin);
+			
+			if (bLoginSuccess) {
+				CUser cUser = new CUser();
+				vUser = cUser.getUser(vLogin.getUserId());
+				
+				if(vUser == null) {
+					// 시스템 에러 - 회원 정보가 존재하지 않음
+				}
+						
+			}
 		}
-	}
-	
-	private class ActionHandler implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent event) {
-			System.out.println("1");
-			if (event.getActionCommand().equals(okButton.getText())) {
-				System.out.println("2");
-				validateUser();
-			}	
-		}		
+		
+		return vUser;
 	}
 	
 }

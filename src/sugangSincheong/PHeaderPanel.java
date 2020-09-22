@@ -12,8 +12,8 @@ public class PHeaderPanel extends JPanel {
 	
 	public PHeaderPanel(VUser vUser) {
 		this.vUser = vUser;
-		this.welcomeLabel = new JLabel("¥‘ æ»≥Á«œººø‰.");
-		welcomeLabel.setText(vUser.getMajor()+" "+vUser.getNumber()+" " +vUser.getName()+"¥‘ æ»≥Á«œººø‰.");
+		this.welcomeLabel = new JLabel("");
+		welcomeLabel.setText("Hello, " + vUser.getMajor()+" "+vUser.getNumber()+" " +vUser.getName());
 		this.add(this.welcomeLabel);
 		
 	}
