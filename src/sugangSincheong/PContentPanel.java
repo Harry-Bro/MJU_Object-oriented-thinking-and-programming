@@ -1,6 +1,5 @@
 package sugangSincheong;
-import java.awt.CardLayout;
-
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 public class PContentPanel extends JPanel {
@@ -10,11 +9,11 @@ public class PContentPanel extends JPanel {
 	private PMove pMove1;
 	private PMiridamgi pMiridamgi;
 	private PMove pMove2;
-	private PResult pResult;
+	private PResult pSincheong;
 
 	public PContentPanel() {
 		
-		this.setLayout(new CardLayout());
+		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
 		this.pSelection = new PSelection();
 		this.add(this.pSelection);
@@ -28,7 +27,7 @@ public class PContentPanel extends JPanel {
 		this.pMove2 = new PMove();
 		this.add(this.pMove2);
 		
-		this.pResult = new PResult();
-		this.add(this.pResult);
+		this.pSincheong = new PResult();
+		this.add(this.pSincheong);
 	}
 }

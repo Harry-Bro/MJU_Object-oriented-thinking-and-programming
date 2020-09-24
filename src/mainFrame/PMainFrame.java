@@ -17,7 +17,6 @@ public class PMainFrame extends JFrame {
 	// constructor
 	public PMainFrame(VUser vUser) {
 		// set attributes
-		
 		this.setLocationRelativeTo(null);
 		this.setSize(
 				Constants.EMainFrame.WIDTH.getSize(), 
@@ -25,11 +24,12 @@ public class PMainFrame extends JFrame {
 				);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		this.setLayout(new BorderLayout());
+		
 		// create and register components
 		this.pMenuBar = new PMenuBar();
 		this.setJMenuBar(this.pMenuBar);
 		
-		this.setLayout(new BorderLayout());
 		
 		this.pToolBar = new PToolBar();
 		this.add(this.pToolBar, BorderLayout.NORTH);
