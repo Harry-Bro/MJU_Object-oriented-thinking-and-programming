@@ -8,6 +8,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import control.CDirectory;
+import sugangSincheong.PSelection.ListSelectionHandler;
+import valueObject.VDirectory;
+
 public class PHakgwaSelection extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -15,62 +19,83 @@ public class PHakgwaSelection extends JPanel {
 	private PDirectory pCampus;
 	private PDirectory pCollege;
 	private PDirectory pHakgwa;
-	private PDirectory pGangjwa;
+//	private PDirectory pGangjwa;
+	
+	private String fileName;
 	
 	
-	public PHakgwaSelection() {
+	public PHakgwaSelection(ListSelectionHandler listSelectionHandler) {
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		
+		this.fileName = "root";
 		
 		JScrollPane scrollpane;
 		
 		scrollpane = new JScrollPane();
-		Vector<String> rowCampusData = new Vector<>();
-		rowCampusData.addElement("인문 캠퍼스");
-		rowCampusData.addElement("자연 캠퍼스");
-		this.pCampus = new PDirectory("캠퍼스");
+		this.pCampus = new PDirectory("캠퍼스", listSelectionHandler);
 		scrollpane.setViewportView(this.pCampus);
 		this.add(scrollpane);
+		fileName = this.pCampus.getData(fileName);
 		
-		scrollpane = new JScrollPane();
-		Vector<String> rowCollegeData = new Vector<>();
-		rowCollegeData.addElement("경영대학");
-		rowCollegeData.addElement("인문대학");
-		rowCollegeData.addElement("ICT대학");
-		this.pCollege = new PDirectory("대학");
-		scrollpane.setViewportView(this.pCollege);
-		this.add(scrollpane);
-		
-		scrollpane = new JScrollPane();
-		Vector<String> rowHakgwaData = new Vector<>();
-		rowHakgwaData.addElement("경영학과");
-		rowHakgwaData.addElement("경영정보학과");
-		rowHakgwaData.addElement("행정학과");
-		this.pHakgwa = new PDirectory("학과");
-		scrollpane.setViewportView(this.pHakgwa);
-		this.add(scrollpane);
+//		scrollpane = new JScrollPane();
+//		this.pCollege = new PDirectory("대학", listSelectionHandler);
+//		scrollpane.setViewportView(this.pCollege);
+//		this.add(scrollpane);
+//		fileName = this.pCollege.getData(fileName);
+//		
+//		scrollpane = new JScrollPane();
+//		this.pHakgwa = new PDirectory("학과", listSelectionHandler);
+//		scrollpane.setViewportView(this.pHakgwa);
+//		this.add(scrollpane);
+//		fileName = this.pHakgwa.getData(fileName);
+	}
+	
+
+	public void update(Object source) {
+		if(source.equals(this.pCampus)) {
+			
+		} else if(source.equals(this.pCollege)) {
+			
+		} else if(source.equals(this.pHakgwa)) {
+			
+		}
 	}
 
 	private class PDirectory extends JTable {
 		private DefaultTableModel tableModel;
 		
-		public PDirectory(String title) {
-			Vector<String> header = new Vector<String>();
-			header.addElement(title);
-			header.addElement(title);
+		public PDirectory(String title, ListSelectionHandler listSelectionHandler) {
+
+			this.getSelectionModel().addListSelectionListener(listSelectionHandler);
+			Vector<String> header = new Vector<String>();			
 			
-//			Object[][] data = {
-//					{1,2},
-//					{3,4}
-//			};
-			
+			header.addElement(title);
 			this.tableModel = new DefaultTableModel(header, 0);
-			
-//			this.tableModel.addRow(data[0]);
-//			this.tableModel.addRow(data[1]);
-			
 			this.setModel(this.tableModel);
 			
 		}
+
+		public String getData(String fileName) {
+			
+			CDirectory cDirectory = new CDirectory();
+			Vector<VDirectory> vDirectories = cDirectory.getData(fileName);
+			
+			for(VDirectory vDirectory:vDirectories) {
+				Vector<String> row = new Vector<>();
+				System.out.println(vDirectory.getName());
+				
+				row.addElement(vDirectory.getName()); // 벡터에 담
+				this.tableModel.addRow(row);
+			}
+			
+			if(vDirectories.size() > 0) {
+				this.getSelectionModel().addSelectionInterval(0, 0); // 0번째 로우를 선택함 
+				return vDirectories.get(0).getFileName();
+			}
+			
+			return null;
+		}
 	}
+
 	
 }

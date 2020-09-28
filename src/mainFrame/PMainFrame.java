@@ -17,11 +17,12 @@ public class PMainFrame extends JFrame {
 	// constructor
 	public PMainFrame(VUser vUser) {
 		// set attributes
-		this.setLocationRelativeTo(null);
 		this.setSize(
 				Constants.EMainFrame.WIDTH.getSize(), 
 				Constants.EMainFrame.HEIGHT.getSize()
 				);
+		// setLocationRelativeTo() size 다음에 작성해야함.
+		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		this.setLayout(new BorderLayout());

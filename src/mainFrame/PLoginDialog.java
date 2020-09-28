@@ -30,10 +30,8 @@ public class PLoginDialog extends JDialog {
 	
 	public PLoginDialog(Main.ActionHandler actionHandler) {
 		
-	
-		
-		this.setLocationRelativeTo(null);
 		this.setSize(ELoginDialog.width.getInt(), ELoginDialog.height.getInt());
+		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 
 		this.setLayout(new FlowLayout());
@@ -60,6 +58,8 @@ public class PLoginDialog extends JDialog {
 			this.cancelButton.addActionListener(actionHandler);
 			this.okButton.setActionCommand(this.okButton.getText());
 			this.cancelButton.setActionCommand(this.cancelButton.getText());
+			
+			this.getRootPane().setDefaultButton(okButton); // Enter시 포커스를 받아서 이벤트헨들 실
 			
 			line3.add(this.okButton);	
 			line3.add(this.cancelButton);
