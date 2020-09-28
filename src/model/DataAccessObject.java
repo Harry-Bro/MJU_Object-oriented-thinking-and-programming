@@ -51,7 +51,7 @@ public class DataAccessObject {
 		Vector<MDirectory> mDirectories = new Vector<>();
 		
 		try {
-			Scanner scanner = new Scanner(new File("data/Campus"));		
+			Scanner scanner = new Scanner(new File("lectureInfo/" + fileName));		
 			
 			while (scanner.hasNext()) {
 				System.out.println(1);

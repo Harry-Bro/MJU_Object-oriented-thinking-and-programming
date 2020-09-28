@@ -37,17 +37,17 @@ public class PHakgwaSelection extends JPanel {
 		this.add(scrollpane);
 		fileName = this.pCampus.getData(fileName);
 		
-//		scrollpane = new JScrollPane();
-//		this.pCollege = new PDirectory("대학", listSelectionHandler);
-//		scrollpane.setViewportView(this.pCollege);
-//		this.add(scrollpane);
-//		fileName = this.pCollege.getData(fileName);
-//		
-//		scrollpane = new JScrollPane();
-//		this.pHakgwa = new PDirectory("학과", listSelectionHandler);
-//		scrollpane.setViewportView(this.pHakgwa);
-//		this.add(scrollpane);
-//		fileName = this.pHakgwa.getData(fileName);
+		scrollpane = new JScrollPane();
+		this.pCollege = new PDirectory("대학", listSelectionHandler);
+		scrollpane.setViewportView(this.pCollege);
+		this.add(scrollpane);
+		fileName = this.pCollege.getData(fileName);
+		
+		scrollpane = new JScrollPane();
+		this.pHakgwa = new PDirectory("학과", listSelectionHandler);
+		scrollpane.setViewportView(this.pHakgwa);
+		this.add(scrollpane);
+		fileName = this.pHakgwa.getData(fileName);
 	}
 	
 

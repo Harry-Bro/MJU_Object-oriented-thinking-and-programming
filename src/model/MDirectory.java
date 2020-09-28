@@ -27,11 +27,8 @@ public class MDirectory {
 	
 	public void read() {
 		this.id = scanner.next();
-		System.out.println("id: " + id);
 		this.name = scanner.next();
-		System.out.println(name);
 		this.fileName = scanner.next();
-		System.out.println(fileName);
 	}
 	
 	

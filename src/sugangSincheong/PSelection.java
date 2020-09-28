@@ -30,9 +30,9 @@ public class PSelection extends JPanel {
 	}
 	
 	private void update(Object source) {
-		this.pHakgwaSelection.update(source);
-		String fileName = this.pHakgwaSelection.getFileName();
-		this.pGangjwaSelection.update(fileName);
+//		this.pHakgwaSelection.update(source);
+//		String fileName = this.pHakgwaSelection.getFileName();
+//		this.pGangjwaSelection.update(fileName);
 	}
 	
 	public class ListSelectionHandler implements ListSelectionListener {
