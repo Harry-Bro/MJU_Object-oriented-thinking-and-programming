@@ -15,4 +15,9 @@ public class PMenuBar extends JMenuBar {
 		this.pEditMenu = new PEditMenu();
 		this.add(pEditMenu);
 	}
+
+	public void initialize() {
+		this.pFileMenu.initialize();
+		this.pEditMenu.initialize();		
+	}
 }

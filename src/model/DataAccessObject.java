@@ -21,16 +21,16 @@ public class DataAccessObject {
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	public MUser getUser(String userId) {
+		MUser mUser = null;
 		try {
 			Scanner scanner = new Scanner(new File("userInfo/"+userId));
-			MUser mUser = new MUser(scanner, userId);
+			mUser = new MUser(scanner, userId);
 			while (scanner.hasNext()) {
 				boolean found = mUser.read();
 				if (found) {
@@ -40,34 +40,25 @@ public class DataAccessObject {
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;	
+		return null;
 	}
-	
+
 	public Vector<MDirectory> getDirectories(String fileName) {
-		
-		Vector<MDirectory> mDirectories = new Vector<>();
-		
+		Vector<MDirectory> mDirectories = new Vector<MDirectory>();
 		try {
-			Scanner scanner = new Scanner(new File("lectureInfo/" + fileName));		
-			
+			Scanner scanner = new Scanner(new File("lectureInfo/"+ fileName));
 			while (scanner.hasNext()) {
-				System.out.println(1);
 				MDirectory mDirectory = new MDirectory(scanner);
 				mDirectory.read();
 				mDirectories.add(mDirectory);
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return mDirectories;	
+		return mDirectories;
 	}
-	
-	
-	
 
 }

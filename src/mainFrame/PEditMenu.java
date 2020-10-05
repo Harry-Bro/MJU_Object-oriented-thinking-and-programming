@@ -17,4 +17,7 @@ public class PEditMenu extends JMenu {
 			this.add(menuItem);
 		} 
 	}
+
+	public void initialize() {
+	}
 }

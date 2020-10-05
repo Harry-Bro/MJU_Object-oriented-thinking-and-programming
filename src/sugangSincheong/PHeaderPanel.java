@@ -6,16 +6,14 @@ import valueObject.VUser;
 
 public class PHeaderPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
-	
-	private VUser vUser;
-	public static JLabel welcomeLabel;
-	
-	public PHeaderPanel(VUser vUser) {
-		this.vUser = vUser;
-		this.welcomeLabel = new JLabel("");
-		welcomeLabel.setText("Hello, " + vUser.getMajor()+" "+vUser.getNumber()+" " +vUser.getName());
-		this.add(this.welcomeLabel);
-		
-	}
 
+	private JLabel welcomeLabel;
+	
+	public PHeaderPanel() {
+		this.welcomeLabel = new JLabel();
+		this.add(this.welcomeLabel);
+	}
+	public void initialize(VUser vUser) {
+		this.welcomeLabel.setText(vUser.getName()+"¥‘ æ»≥Á«œººø‰.");		
+	}
 }

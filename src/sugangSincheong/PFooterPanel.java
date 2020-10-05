@@ -7,4 +7,9 @@ public class PFooterPanel extends JPanel {
 	public PFooterPanel() {
 
 	}
+
+	public void initialize() {
+		// TODO Auto-generated method stub
+		
+	}
 }

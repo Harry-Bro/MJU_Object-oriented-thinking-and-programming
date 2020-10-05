@@ -12,10 +12,11 @@ public class PSugangSincheongPanel extends JPanel {
 	private PContentPanel pContentPanel;
 	private PFooterPanel pFooterPanel;
 	
-	public PSugangSincheongPanel(VUser vUser) {
+	public PSugangSincheongPanel() {
+		
 		this.setLayout(new BorderLayout());
 		
-		this.pHeaderPanel = new PHeaderPanel(vUser);
+		this.pHeaderPanel = new PHeaderPanel();
 		this.add(this.pHeaderPanel, BorderLayout.NORTH);
 		
 		this.pContentPanel = new PContentPanel();
@@ -23,5 +24,12 @@ public class PSugangSincheongPanel extends JPanel {
 		
 		this.pFooterPanel = new PFooterPanel();
 		this.add(this.pFooterPanel, BorderLayout.SOUTH);
+	}
+
+	public void initialize(VUser vUser) {
+		this.pHeaderPanel.initialize(vUser);
+		this.pContentPanel.initialize();
+		this.pFooterPanel.initialize();
+		
 	}
 }

@@ -17,4 +17,7 @@ public class PFileMenu extends JMenu {
 			this.add(menuItem);
 		}
 	}
+
+	public void initialize() {
+	}
 }

@@ -13,24 +13,19 @@ import sugangSincheong.PSelection.ListSelectionHandler;
 import valueObject.VDirectory;
 
 public class PHakgwaSelection extends JPanel {
-
 	private static final long serialVersionUID = 1L;
-	
+
 	private PDirectory pCampus;
 	private PDirectory pCollege;
 	private PDirectory pHakgwa;
-//	private PDirectory pGangjwa;
 	
 	private String fileName;
 	
-	
 	public PHakgwaSelection(ListSelectionHandler listSelectionHandler) {
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		
 		this.fileName = "root";
 		
 		JScrollPane scrollpane;
-		
 		scrollpane = new JScrollPane();
 		this.pCampus = new PDirectory("캠퍼스", listSelectionHandler);
 		scrollpane.setViewportView(this.pCampus);
@@ -38,64 +33,83 @@ public class PHakgwaSelection extends JPanel {
 		fileName = this.pCampus.getData(fileName);
 		
 		scrollpane = new JScrollPane();
-		this.pCollege = new PDirectory("대학", listSelectionHandler);
+		this.pCollege = new PDirectory("대힉", listSelectionHandler);
 		scrollpane.setViewportView(this.pCollege);
 		this.add(scrollpane);
-		fileName = this.pCollege.getData(fileName);
 		
 		scrollpane = new JScrollPane();
 		this.pHakgwa = new PDirectory("학과", listSelectionHandler);
 		scrollpane.setViewportView(this.pHakgwa);
-		this.add(scrollpane);
-		fileName = this.pHakgwa.getData(fileName);
+		this.add(scrollpane);	
+	}
+	public void initialize() {
+		fileName = this.pCollege.initialize(fileName);
+		fileName = this.pHakgwa.initialize(fileName);		
 	}
 	
-
 	public void update(Object source) {
-		if(source.equals(this.pCampus)) {
+		if (source.equals(this.pCampus.getSelectionModel())) {
+			int selectedRowIndex = this.pCampus.getSelectedRow();
 			
-		} else if(source.equals(this.pCollege)) {
+			fileName = this.pCollege.getData(fileName);
+			fileName = this.pHakgwa.getData(fileName);		
+		} else if (source.equals(this.pCollege.getSelectionModel())) {
 			
-		} else if(source.equals(this.pHakgwa)) {
+		} else if (source.equals(this.pHakgwa.getSelectionModel())) {
 			
-		}
+		}		
 	}
-
+	
 	private class PDirectory extends JTable {
-		private DefaultTableModel tableModel;
-		
-		public PDirectory(String title, ListSelectionHandler listSelectionHandler) {
+		private static final long serialVersionUID = 1L;
 
+		private DefaultTableModel tableModel;
+		public PDirectory(String title, ListSelectionHandler listSelectionHandler) {
+			// attributes
 			this.getSelectionModel().addListSelectionListener(listSelectionHandler);
-			Vector<String> header = new Vector<String>();			
 			
+			// data model
+			Vector<String> header = new Vector<String>();
 			header.addElement(title);
 			this.tableModel = new DefaultTableModel(header, 0);
 			this.setModel(this.tableModel);
-			
+		}
+
+		public String initialize(String fileName) {
+			return this.getData(fileName);			
 		}
 
 		public String getData(String fileName) {
-			
 			CDirectory cDirectory = new CDirectory();
 			Vector<VDirectory> vDirectories = cDirectory.getData(fileName);
-			
-			for(VDirectory vDirectory:vDirectories) {
-				Vector<String> row = new Vector<>();
-				System.out.println(vDirectory.getName());
-				
-				row.addElement(vDirectory.getName()); // 벡터에 담
+			for (VDirectory vDirectory: vDirectories) {
+				Vector<String> row = new Vector<String>();
+				row.add(vDirectory.getName());
 				this.tableModel.addRow(row);
 			}
-			
-			if(vDirectories.size() > 0) {
-				this.getSelectionModel().addSelectionInterval(0, 0); // 0번째 로우를 선택함 
+			if (vDirectories.size() > 0) {
+				this.getSelectionModel().addSelectionInterval(0, 0);
 				return vDirectories.get(0).getFileName();
 			}
-			
 			return null;
 		}
 	}
-
-	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

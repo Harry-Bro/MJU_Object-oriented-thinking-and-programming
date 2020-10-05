@@ -15,13 +15,12 @@ public class PMainFrame extends JFrame {
 	private PSugangSincheongPanel pMainPanel;
 	
 	// constructor
-	public PMainFrame(VUser vUser) {
+	public PMainFrame() {
 		// set attributes
 		this.setSize(
 				Constants.EMainFrame.WIDTH.getSize(), 
 				Constants.EMainFrame.HEIGHT.getSize()
 				);
-		// setLocationRelativeTo() size 다음에 작성해야함.
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -29,14 +28,18 @@ public class PMainFrame extends JFrame {
 		
 		// create and register components
 		this.pMenuBar = new PMenuBar();
-		this.setJMenuBar(this.pMenuBar);
-		
+		this.setJMenuBar(this.pMenuBar);		
 		
 		this.pToolBar = new PToolBar();
 		this.add(this.pToolBar, BorderLayout.NORTH);
 		
-		this.pMainPanel = new PSugangSincheongPanel(vUser);
+		this.pMainPanel = new PSugangSincheongPanel();
 		this.add(this.pMainPanel, BorderLayout.CENTER);	
-
+	}
+	
+	public void initialize(VUser vUser) {
+		this.pMenuBar.initialize();
+		this.pToolBar.initialize();
+		this.pMainPanel.initialize(vUser);		
 	}
 }

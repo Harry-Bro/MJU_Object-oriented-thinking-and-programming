@@ -5,9 +5,9 @@ public class Constants {
 	public enum ELoginDialog {
 		width("300"),
 		height("200"),
-		nameLabel("ID "),
+		nameLabel(" 아이디   "),
 		sizeNameText("10"),
-		passwordLabel("PW "),
+		passwordLabel("비밀번호"),
 		sizePasswordText("10"),
 		okButtonLabel("ok"),
 		cancelButtonLabel("cancel");
@@ -40,8 +40,8 @@ public class Constants {
 	}
 	
 	public enum EMenuBar {
-		FILE("FILE"),
-		EDIT("EDIT");
+		FILE("파일"),
+		EDIT("편집");
 		
 		private String text;
 		
@@ -54,12 +54,12 @@ public class Constants {
 	}
 	
 	public enum EFileMenu {
-		NEW("NEW"),
-		OPEN("OPEN"),
-		SAVE("SAVE"),
-		SAVEAS("SAVE-AS"),
-		PRINT("PRINT"),
-		EXIT("EXIT");
+		NEW("생성"),
+		OPEN("열기"),
+		SAVE("저장"),
+		SAVEAS("다른이름으로"),
+		PRINT("프린트"),
+		EXIT("종료");
 		
 		private String text;
 		
@@ -72,10 +72,10 @@ public class Constants {
 	}
 	
 	public enum EEditMenu {
-		COPY("COPY"),
-		CUT("CUT"),
-		PASTE("PASTE"),
-		DELETE("DELETE");
+		COPY("복사"),
+		CUT("자르기"),
+		PASTE("붙여넣기"),
+		DELETE("삭제");
 		
 		private String text;
 		
@@ -86,31 +86,5 @@ public class Constants {
 			return this.text;
 		}
 	}
-	
-	public enum EToolBar{
-		BASKET("BASKET", "data/BASKET.png"),
-		ENROLLMENT("actionHandler", "data/ENROLLMENT.png"),
-		PERSONAL("PERSONAL", "data/PERSONAL.png"),
-		GRADE("GRADE", "data/GRADE.png");
-		
-		
-		private String text;
-		private String path;
-
-		EToolBar(String text, String path){
-			this.text = text;
-			this.path=path;
-		}
-
-		public String getText() {
-			return this.text;
-		}
-		
-		public String getPath() {
-			return this.path;
-		}
-
-	}
-	
 	
 }
