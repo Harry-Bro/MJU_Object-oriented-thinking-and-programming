@@ -30,7 +30,6 @@ public class PHakgwaSelection extends JPanel {
 		this.pCampus = new PDirectory("Ä·ÆÛ½º", listSelectionHandler);
 		scrollpane.setViewportView(this.pCampus);
 		this.add(scrollpane);
-		fileName = this.pCampus.getData(fileName);
 		
 		scrollpane = new JScrollPane();
 		this.pCollege = new PDirectory("´ëÈø", listSelectionHandler);
@@ -41,8 +40,10 @@ public class PHakgwaSelection extends JPanel {
 		this.pHakgwa = new PDirectory("ÇÐ°ú", listSelectionHandler);
 		scrollpane.setViewportView(this.pHakgwa);
 		this.add(scrollpane);	
+
 	}
 	public void initialize() {
+		fileName = this.pCampus.initialize(fileName);
 		fileName = this.pCollege.initialize(fileName);
 		fileName = this.pHakgwa.initialize(fileName);		
 	}

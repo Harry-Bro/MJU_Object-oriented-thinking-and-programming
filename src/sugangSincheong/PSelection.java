@@ -24,6 +24,12 @@ public class PSelection extends JPanel {
 		scrollPane.setViewportView(this.pGangjwaSelection);
 		this.add(scrollPane);
 	}
+	
+	public void initialize() {
+		this.pHakgwaSelection.initialize();
+		this.pGangjwaSelection.initialize();
+	}
+	
 	private void update(Object source) {
 		this.pHakgwaSelection.update(source);
 //		String fileName = this.pHakgwaSelection.getFileName();
@@ -37,8 +43,5 @@ public class PSelection extends JPanel {
 		}
 	}
 
-	public void initialize() {
-		this.pHakgwaSelection.initialize();
-		this.pGangjwaSelection.initialize();
-	}
+	
 }
