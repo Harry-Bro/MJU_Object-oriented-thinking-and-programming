@@ -20,10 +20,19 @@ public class PHakgwaSelection extends JPanel {
 	private PDirectory pHakgwa;
 	
 	private String fileName;
+	private String campusName;
+	private String collegeName;
+	private String hakgwaName;
+	private String gangjwaNum;
+	
+	private boolean initialized = false;
+	
+	private PGangjwaSelection pGangjwaSelection;
 	
 	public PHakgwaSelection(ListSelectionHandler listSelectionHandler) {
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		this.fileName = "root";
+		
 		
 		JScrollPane scrollpane;
 		scrollpane = new JScrollPane();
@@ -42,35 +51,77 @@ public class PHakgwaSelection extends JPanel {
 		this.add(scrollpane);	
 
 	}
-	public void initialize() {
+	public void initialize(PGangjwaSelection pGangjwaSelection) {
 		fileName = this.pCampus.initialize(fileName);
 		fileName = this.pCollege.initialize(fileName);
 		fileName = this.pHakgwa.initialize(fileName);		
+		
+		this.pGangjwaSelection = pGangjwaSelection;
+		this.pGangjwaSelection.initialize(fileName);
+		initialized = true;
 	}
 	
 	public void update(Object source) {
-		if (source.equals(this.pCampus.getSelectionModel())) {
-			int selectedRowIndex = this.pCampus.getSelectedRow();
-			
-			fileName = this.pCollege.getData(fileName);
-			fileName = this.pHakgwa.getData(fileName);		
-		} else if (source.equals(this.pCollege.getSelectionModel())) {
-			
-		} else if (source.equals(this.pHakgwa.getSelectionModel())) {
-			
-		}		
+		System.out.println("hakgwa table click");
+		
+		if(initialized == true) {
+			if (source.equals(this.pCampus.getSelectionModel())) {
+				
+				int selectedRowIndex = this.pCampus.getSelectedRow();
+
+				if(selectedRowIndex >= 0) {
+					Vector<VDirectory> vDirectories = pCampus.getDirectory();
+					fileName = vDirectories.get(selectedRowIndex).getFileName();
+	
+	
+					fileName = this.pCollege.initialize(fileName);
+					fileName = this.pHakgwa.initialize(fileName);
+					this.pGangjwaSelection.initialize(fileName);
+				}
+				
+			} else if (source.equals(this.pCollege.getSelectionModel())) {
+				System.out.println("College click");
+				
+				int selectedRowIndex = this.pCollege.getSelectedRow();
+				if(selectedRowIndex >= 0) {
+					System.out.println(selectedRowIndex);
+					
+					Vector<VDirectory> vDirectories = pCollege.getDirectory();
+					fileName = vDirectories.get(selectedRowIndex).getFileName();
+					
+					fileName = this.pHakgwa.initialize(fileName);
+					this.pGangjwaSelection.initialize(fileName);
+				}
+				
+			} else if (source.equals(this.pHakgwa.getSelectionModel())) {
+				
+				System.out.println("Hakgwa click");
+				int selectedRowIndex = this.pHakgwa.getSelectedRow();
+				if(selectedRowIndex >= 0) {
+					Vector<VDirectory> vDirectories = pHakgwa.getDirectory();
+					fileName = vDirectories.get(selectedRowIndex).getFileName();
+	
+					this.pGangjwaSelection.initialize(fileName);
+				}
+			}
+		}
+		
 	}
 	
 	private class PDirectory extends JTable {
 		private static final long serialVersionUID = 1L;
 
 		private DefaultTableModel tableModel;
+		
+		Vector<String> header;
+		private Vector<VDirectory> vDirectories;
+		
 		public PDirectory(String title, ListSelectionHandler listSelectionHandler) {
 			// attributes
 			this.getSelectionModel().addListSelectionListener(listSelectionHandler);
 			
 			// data model
-			Vector<String> header = new Vector<String>();
+			header = new Vector<String>();
 			header.addElement(title);
 			this.tableModel = new DefaultTableModel(header, 0);
 			this.setModel(this.tableModel);
@@ -81,8 +132,12 @@ public class PHakgwaSelection extends JPanel {
 		}
 
 		public String getData(String fileName) {
+			// table initialize
+			this.tableModel = new DefaultTableModel(header, 0);
+			this.setModel(this.tableModel);
+			
 			CDirectory cDirectory = new CDirectory();
-			Vector<VDirectory> vDirectories = cDirectory.getData(fileName);
+			vDirectories = cDirectory.getData(fileName);
 			for (VDirectory vDirectory: vDirectories) {
 				Vector<String> row = new Vector<String>();
 				row.add(vDirectory.getName());
@@ -93,6 +148,10 @@ public class PHakgwaSelection extends JPanel {
 				return vDirectories.get(0).getFileName();
 			}
 			return null;
+		}
+		
+		public Vector<VDirectory> getDirectory() {
+			return this.vDirectories;
 		}
 	}
 }

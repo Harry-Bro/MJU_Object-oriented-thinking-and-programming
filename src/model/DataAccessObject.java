@@ -60,5 +60,24 @@ public class DataAccessObject {
 		}
 		return mDirectories;
 	}
+	
+	public Vector<MGangjwa> getGangjwa(String fileName) {
+		Vector<MGangjwa> mGangjwas = new Vector<MGangjwa>();
+		try {
+			Scanner scanner = new Scanner(new File("lectureInfo/"+fileName));
+			while (scanner.hasNext()) {
+				MGangjwa mGangjwa = new MGangjwa(scanner);
+				mGangjwa.read();
+				mGangjwas.add(mGangjwa);
+			}
+			
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mGangjwas;
+		
+	}
 
 }

@@ -20,14 +20,14 @@ public class PSelection extends JPanel {
 		this.add(this.pHakgwaSelection);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		this.pGangjwaSelection = new PGangjwaSelection();
+		this.pGangjwaSelection = new PGangjwaSelection(listSelectionHandler);
 		scrollPane.setViewportView(this.pGangjwaSelection);
 		this.add(scrollPane);
 	}
 	
 	public void initialize() {
-		this.pHakgwaSelection.initialize();
-		this.pGangjwaSelection.initialize();
+		this.pHakgwaSelection.initialize(pGangjwaSelection);
+//		this.pGangjwaSelection.initialize();
 	}
 	
 	private void update(Object source) {
