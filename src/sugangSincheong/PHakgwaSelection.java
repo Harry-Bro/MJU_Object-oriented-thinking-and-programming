@@ -56,55 +56,31 @@ public class PHakgwaSelection extends JPanel {
 		fileName = this.pCollege.initialize(fileName);
 		fileName = this.pHakgwa.initialize(fileName);		
 		
-		this.pGangjwaSelection = pGangjwaSelection;
-		this.pGangjwaSelection.initialize(fileName);
-		initialized = true;
+	}
+	
+	public String getFileName() {
+		return this.fileName;
 	}
 	
 	public void update(Object source) {
-		System.out.println("hakgwa table click");
-		
-		if(initialized == true) {
-			if (source.equals(this.pCampus.getSelectionModel())) {
-				
-				int selectedRowIndex = this.pCampus.getSelectedRow();
 
-				if(selectedRowIndex >= 0) {
-					Vector<VDirectory> vDirectories = pCampus.getDirectory();
-					fileName = vDirectories.get(selectedRowIndex).getFileName();
-	
-	
-					fileName = this.pCollege.initialize(fileName);
-					fileName = this.pHakgwa.initialize(fileName);
-					this.pGangjwaSelection.initialize(fileName);
-				}
-				
-			} else if (source.equals(this.pCollege.getSelectionModel())) {
-				System.out.println("College click");
-				
-				int selectedRowIndex = this.pCollege.getSelectedRow();
-				if(selectedRowIndex >= 0) {
-					System.out.println(selectedRowIndex);
-					
-					Vector<VDirectory> vDirectories = pCollege.getDirectory();
-					fileName = vDirectories.get(selectedRowIndex).getFileName();
-					
-					fileName = this.pHakgwa.initialize(fileName);
-					this.pGangjwaSelection.initialize(fileName);
-				}
-				
-			} else if (source.equals(this.pHakgwa.getSelectionModel())) {
-				
-				System.out.println("Hakgwa click");
-				int selectedRowIndex = this.pHakgwa.getSelectedRow();
-				if(selectedRowIndex >= 0) {
-					Vector<VDirectory> vDirectories = pHakgwa.getDirectory();
-					fileName = vDirectories.get(selectedRowIndex).getFileName();
-	
-					this.pGangjwaSelection.initialize(fileName);
-				}
-			}
+		if (source.equals(this.pCampus.getSelectionModel())) {
+			
+			this.fileName = this.pCampus.getSelectedFileName();
+			
+			this.fileName = this.pCollege.getData(this.fileName);
+			this.fileName = this.pHakgwa.getData(this.fileName);
+			
+		} else if (source.equals(this.pCollege.getSelectionModel())) {
+			
+			this.fileName = this.pCollege.getSelectedFileName();
+			this.fileName = this.pHakgwa.getData(this.fileName);
+			
+		} else if (source.equals(this.pHakgwa.getSelectionModel())) {
+			
+			this.fileName = this.pHakgwa.getSelectedFileName();
 		}
+		
 		
 	}
 	
@@ -113,12 +89,15 @@ public class PHakgwaSelection extends JPanel {
 
 		private DefaultTableModel tableModel;
 		
+		ListSelectionHandler listSelectionHandler;
 		Vector<String> header;
 		private Vector<VDirectory> vDirectories;
 		
+		
 		public PDirectory(String title, ListSelectionHandler listSelectionHandler) {
 			// attributes
-			this.getSelectionModel().addListSelectionListener(listSelectionHandler);
+			this.listSelectionHandler = listSelectionHandler;
+			this.getSelectionModel().addListSelectionListener(this.listSelectionHandler);
 			
 			// data model
 			header = new Vector<String>();
@@ -130,31 +109,44 @@ public class PHakgwaSelection extends JPanel {
 		public String initialize(String fileName) {
 			return this.getData(fileName);			
 		}
+		
+		
+		public String getSelectedFileName() {
+			int selectedIndex = this.getSelectedRow();
+			String selectedFileName = this.vDirectories.get(selectedIndex).getFileName();
+			return selectedFileName;
+		}
 
 		public String getData(String fileName) {
-			// table initialize
-			this.tableModel = new DefaultTableModel(header, 0);
-			this.setModel(this.tableModel);
+			this.getSelectionModel().removeListSelectionListener(this.listSelectionHandler);
+			
+			// tablemodel의 rowCount를 0으로 만들어서 초괴화를 한다.
+			this.tableModel.setRowCount(0);
 			
 			CDirectory cDirectory = new CDirectory();
-			vDirectories = cDirectory.getData(fileName);
-			for (VDirectory vDirectory: vDirectories) {
+			this.vDirectories = cDirectory.getData(fileName);
+			for (VDirectory vDirectory: this.vDirectories) {
 				Vector<String> row = new Vector<String>();
 				row.add(vDirectory.getName());
 				this.tableModel.addRow(row);
 			}
+			
+			String selectedFileName = null;
 			if (vDirectories.size() > 0) {
 				this.getSelectionModel().addSelectionInterval(0, 0);
-				return vDirectories.get(0).getFileName();
+				selectedFileName = vDirectories.get(0).getFileName();
 			}
 			
-			return null;
+			this.getSelectionModel().addListSelectionListener(this.listSelectionHandler);
+			return selectedFileName;
 		}
 		
 		public Vector<VDirectory> getDirectory() {
 			return this.vDirectories;
 		}
 	}
+
+	
 }
 
 

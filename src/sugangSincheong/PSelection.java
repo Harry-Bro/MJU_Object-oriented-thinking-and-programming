@@ -27,13 +27,14 @@ public class PSelection extends JPanel {
 	
 	public void initialize() {
 		this.pHakgwaSelection.initialize(pGangjwaSelection);
-//		this.pGangjwaSelection.initialize();
+		String fileName = this.pHakgwaSelection.getFileName();
+		this.pGangjwaSelection.initialize(fileName);
 	}
 	
 	private void update(Object source) {
 		this.pHakgwaSelection.update(source);
-//		String fileName = this.pHakgwaSelection.getFileName();
-//		this.pGangjwaSelection.update(fileName);
+		String fileName = this.pHakgwaSelection.getFileName();
+		this.pGangjwaSelection.update(fileName);
 	}
 	
 	public class ListSelectionHandler implements ListSelectionListener {

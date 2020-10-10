@@ -11,11 +11,12 @@ import sugangSincheong.PSelection.ListSelectionHandler;
 import valueObject.VGangjwa;
 
 public class PGangjwaSelection extends JTable {
-private final long serialVersionUID = 1L;
+	
+	private final long serialVersionUID = 1L;
 
 	 DefaultTableModel tableModel;
-	 Vector<String> header;
 	 
+	 Vector<String> header;	 
 	 Vector<VGangjwa> vGangjwas;
 
 	public PGangjwaSelection(ListSelectionHandler ListSelectionHandler) {
@@ -36,21 +37,25 @@ private final long serialVersionUID = 1L;
 		
 	}
 	
-	public String initialize(String fileName) {
-		// Table initialize
-		this.tableModel = new DefaultTableModel(header, 0);
-		this.setModel(tableModel);
+	public void initialize(String fileName) {
 		
-		fileName = getData(fileName);
-		return fileName;
+	}
+	
+	public Vector<VGangjwa> getSelectedGangjwas() {
+		
+		return null;
+	}
+	
+	public void update(String fileName) {
+		
 	}
 	
 	public String getData(String fileName) {
-		if(fileName!=null) {
+		
 		CGangjwa cGangjwa = new CGangjwa();
-		vGangjwas=null;
+		this.vGangjwas= cGangjwa.getData(fileName);
 		this.tableModel = new DefaultTableModel(header, 0);
-		vGangjwas = cGangjwa.getData(fileName);
+
 		for(VGangjwa vGangjwa : vGangjwas) {
 			Vector<String> row = new Vector<String>();
 			row.add(vGangjwa.getNumber());
@@ -60,19 +65,18 @@ private final long serialVersionUID = 1L;
 			row.add(vGangjwa.getTime());
 			this.tableModel.addRow(row);	
 		}
-			if(vGangjwas.size()>0) {
-				this.setModel(this.tableModel);
-				this.getSelectionModel().addSelectionInterval(0, 0);
-				return vGangjwas.get(0).getNumber();
-			}
+		
+		if(vGangjwas.size()>0) {
+			this.setModel(this.tableModel);
+			this.getSelectionModel().addSelectionInterval(0, 0);
+			return vGangjwas.get(0).getNumber();
 		}
+		
 			
 		return null;
 	}
 
-	public void update(String fileName) {
-		
-	}
+	
 	
 }
 
