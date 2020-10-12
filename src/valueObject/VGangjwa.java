@@ -3,30 +3,32 @@ package valueObject;
 import java.util.Vector;
 
 public class VGangjwa {
-	private String number;
+	private String id;
 	private String name;
-	private String professor;
+	private String lecturer;
 	private String credit;
 	private String time;
 	
+//	 생성자로 값을 초기화 시켜줌
+
 	public VGangjwa(String number, String name, 
 			String professor, String credit, String time) {
-		this.number = number;
+		this.id = number;
 		this.name = name;
-		this.professor = professor;
+		this.lecturer = professor;
 		this.credit = credit;
 		this.time = time;
 		
 	}
 
 	public String getNumber() {
-		return number;
+		return id;
 	}
 	public String getName() {
 		return name;
 	}
 	public String getProfessor() {
-		return professor;
+		return lecturer;
 	}
 	public String getCredit() {
 		return credit;

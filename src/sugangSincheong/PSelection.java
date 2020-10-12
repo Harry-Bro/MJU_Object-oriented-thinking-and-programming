@@ -1,10 +1,14 @@
 package sugangSincheong;
 
+import java.util.Vector;
+
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import valueObject.VGangjwa;
 
 public class PSelection extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -42,6 +46,18 @@ public class PSelection extends JPanel {
 		public void valueChanged(ListSelectionEvent event) {
 			update(event.getSource());			
 		}
+	}
+
+	public Vector<VGangjwa> getSelectedGangjwas() {
+		
+		
+		return this.pGangjwaSelection.getSelectedGangjwas();
+	}
+
+	public Vector<VGangjwa> removeGangjwas() {
+		
+		
+		return null;
 	}
 
 	
