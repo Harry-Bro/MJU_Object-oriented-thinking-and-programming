@@ -42,8 +42,14 @@ public class PGangjwaSelection extends JTable {
 	}
 	
 	public Vector<VGangjwa> getSelectedGangjwas() {
+		Vector<VGangjwa> vSelectedGangjwas = new Vector<>();
 		
-		return null;
+		int[] indices = this.getSelectedRows();
+		for(int index: indices) {
+			vSelectedGangjwas.add(this.vGangjwas.get(index));
+		}
+		
+		return vSelectedGangjwas;
 	}
 	
 	public void update(String fileName) {

@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import valueObject.VGangjwa;
 
@@ -29,13 +30,15 @@ public class PContentPanel extends JPanel {
 		this.add(this.pMove1);
 		
 		this.pMiridamgi = new PResult();
-		this.add(this.pMiridamgi);
+		JScrollPane scrollPane = new JScrollPane(this.pMiridamgi);
+		this.add(scrollPane);
 		
 		this.pMove2 = new PMove(this.actionHandler);
 		this.add(this.pMove2);
 		
 		this.pSincheong = new PResult();
-		this.add(this.pSincheong);
+		scrollPane = new JScrollPane(this.pSincheong);
+		this.add(scrollPane);
 	}
 
 	public void initialize() {
@@ -47,32 +50,53 @@ public class PContentPanel extends JPanel {
 		
 	}
 	
+
+	
 	private void update(Object source) {
-		Vector<VGangjwa> vGangjwas;		
+		Vector<VGangjwa> vSelectedGangjwas;
 		
 		if(source.equals(this.pMove1.getMoveRightButton())) {
 			
-			vGangjwas = this.pSelection.getSelectedGangjwas();
-			this.pMiridamgi.addGangjwas(vGangjwas);
+			vSelectedGangjwas = this.pSelection.getSelectedGangjwas();
+			vSelectedGangjwas = this.removeDuplicatedGangjwas(vSelectedGangjwas);		
+			
+			this.pMiridamgi.addGangjwas(vSelectedGangjwas);
 			
 		} else if(source.equals(this.pMove1.getMoveLeftButton())) {
 			
-			vGangjwas = this.pMiridamgi.removeGangjwas();
+			vSelectedGangjwas = this.pMiridamgi.removeGangjwas();
 			
 		} else if(source.equals(this.pMove2.getMoveRightButton())) {
 			
-			vGangjwas = this.pMiridamgi.removeGangjwas();
-			this.pMiridamgi.addGangjwas(vGangjwas);
+			vSelectedGangjwas = this.pMiridamgi.removeGangjwas();
+			this.pMiridamgi.addGangjwas(vSelectedGangjwas);
 			
 		} else if(source.equals(this.pMove2.getMoveLeftButton())) {
 			
-			vGangjwas = this.pSincheong.removeGangjwas();
-			this.pMiridamgi.addGangjwas(vGangjwas);			
+			vSelectedGangjwas = this.pSincheong.removeGangjwas();
+			this.pMiridamgi.addGangjwas(vSelectedGangjwas);			
 			
 		}
 		
 	}
 	
+	private Vector<VGangjwa> removeDuplicatedGangjwas(Vector<VGangjwa> vSelectedGangjwas) {
+		
+		Vector<VGangjwa> vSingCheongGangjwas = this.pSincheong.getGangjwas();
+		
+		for(int i = vSelectedGangjwas.size()-1; i>=0; i--) {
+		
+			for(VGangjwa vSincheongGangjwa : vSingCheongGangjwas) {
+				if(vSelectedGangjwas.get(i).getNumber().equals(vSincheongGangjwa.getNumber())) {
+					vSelectedGangjwas.remove(i);
+				}
+			}
+			
+		}
+		return vSelectedGangjwas;
+		
+	}
+
 	public class ActionHandler implements ActionListener {
 
 		@Override
