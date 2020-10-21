@@ -25,6 +25,23 @@ public class PResult extends JTable {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public Vector<VGangjwa> removeDuplicated(Vector<VGangjwa> vSelectedGangjwas) {
+		
+		
+		for(int i = vSelectedGangjwas.size()-1; i>=0; i--) {
+			
+			for(VGangjwa vGangjwa : this.vGangjwas) {
+				if(vSelectedGangjwas.get(i).getNumber().equals(vGangjwa.getNumber())) {
+					vSelectedGangjwas.remove(i);
+					break;
+				}
+			}
+			
+		}
+		return vSelectedGangjwas;
+		
+	}
 
 	public Vector<VGangjwa> removeGangjwas() {
 		int[] indices = this.getSelectedRows();
@@ -39,22 +56,22 @@ public class PResult extends JTable {
 		return vRemovedGangjwas;
 	}
 	
-	private void moveSelectedGangjwas(Vector<VGangjwa> vSelectedGangjwas) {
-		for(VGangjwa vSelectedGangjwa : vSelectedGangjwas) {
-			
-			boolean found = false;
-			for(VGangjwa vGangjwa : this.vGangjwas) {
-				if(vSelectedGangjwa.getNumber().equals(vGangjwa.getNumber())) {
-					found = true;
-					break;
-				}
-			}
-			if(!found) {
-				this.vGangjwas.add(vSelectedGangjwa);
-			}
-			
-		}
-	}
+//	private void moveSelectedGangjwas(Vector<VGangjwa> vSelectedGangjwas) {
+//		for(VGangjwa vSelectedGangjwa : vSelectedGangjwas) {
+//			
+//			boolean found = false;
+//			for(VGangjwa vGangjwa : this.vGangjwas) {
+//				if(vSelectedGangjwa.getNumber().equals(vGangjwa.getNumber())) {
+//					found = true;
+//					break;
+//				}
+//			}
+//			if(!found) {
+//				this.vGangjwas.add(vSelectedGangjwa);
+//			}
+//			
+//		}
+//	}
 	
 	private void updateTableData() {
 		this.tableModel.setRowCount(0);
@@ -75,15 +92,18 @@ public class PResult extends JTable {
 
 	public void addGangjwas(Vector<VGangjwa> vSelectedGangjwas) {
 		
-		this.moveSelectedGangjwas(vSelectedGangjwas);
+//		this.moveSelectedGangjwas(vSelectedGangjwas);
+		this.vGangjwas.addAll(vSelectedGangjwas);
 		this.updateTableData();		
 		
 	}
 
 	public Vector<VGangjwa> getGangjwas() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.vGangjwas;
 	}
+
+	
 	
 	
 }

@@ -3,6 +3,7 @@ package sugangSincheong;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
@@ -16,9 +17,9 @@ public class PSelection extends JPanel {
 	private PHakgwaSelection pHakgwaSelection;
 	private PGangjwaSelection pGangjwaSelection;
 	
-	public PSelection() {
+	public PSelection(ListSelectionListener listSelectionHandler) {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		ListSelectionHandler listSelectionHandler = new ListSelectionHandler();
+//		listSelectionHandler = new ListSelectionHandler();
 		
 		this.pHakgwaSelection = new PHakgwaSelection(listSelectionHandler);
 		this.add(this.pHakgwaSelection);
@@ -35,18 +36,18 @@ public class PSelection extends JPanel {
 		this.pGangjwaSelection.initialize(fileName);
 	}
 	
-	private void update(Object source) {
-		this.pHakgwaSelection.update(source);
-		String fileName = this.pHakgwaSelection.getFileName();
-		this.pGangjwaSelection.update(fileName);
-	}
+//	private void update(Object source) {
+//		this.pHakgwaSelection.update(source);
+//		String fileName = this.pHakgwaSelection.getFileName();
+//		this.pGangjwaSelection.update(fileName);
+//	}
 	
-	public class ListSelectionHandler implements ListSelectionListener {
-		@Override
-		public void valueChanged(ListSelectionEvent event) {
-			update(event.getSource());			
-		}
-	}
+//	public class ListSelectionHandler implements ListSelectionListener {
+//		@Override
+//		public void valueChanged(ListSelectionEvent event) {
+//			update(event.getSource());			
+//		}
+//	}
 
 	public Vector<VGangjwa> getSelectedGangjwas() {
 		
@@ -58,6 +59,17 @@ public class PSelection extends JPanel {
 		
 		
 		return null;
+	}
+
+	public PHakgwaSelection getHakgwaSelection() {
+		// TODO Auto-generated method stub
+		
+		return this.pHakgwaSelection;
+	}
+
+	public PGangjwaSelection getGangjwaSelection() {
+		// TODO Auto-generated method stub
+		return this.pGangjwaSelection;
 	}
 
 	
