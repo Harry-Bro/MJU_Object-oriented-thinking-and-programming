@@ -26,7 +26,7 @@ public class Constants {
 
 	
 	public enum EMainFrame {
-		WIDTH(400),
+		WIDTH(1000),
 		HEIGHT(600);
 		
 		private int size;

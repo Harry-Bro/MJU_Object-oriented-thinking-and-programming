@@ -16,62 +16,19 @@ public class PResult extends JTable {
 	
 	public PResult() {
 		Vector<String> header = new Vector<>();
-		this.vGangjwas = new Vector<>();
 		header.addElement("°­ÁÂ¹øÈ£");
 		header.addElement("°­ÁÂ¸í");
+		
+		this.tableModel = new DefaultTableModel(header, 0);
+		this.setModel(tableModel);
+		
+		this.vGangjwas = new Vector<>();
 	}
 
 	public void initialize() {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	public Vector<VGangjwa> removeDuplicated(Vector<VGangjwa> vSelectedGangjwas) {
-		
-		
-		for(int i = vSelectedGangjwas.size()-1; i>=0; i--) {
-			
-			for(VGangjwa vGangjwa : this.vGangjwas) {
-				if(vSelectedGangjwas.get(i).getNumber().equals(vGangjwa.getNumber())) {
-					vSelectedGangjwas.remove(i);
-					break;
-				}
-			}
-			
-		}
-		return vSelectedGangjwas;
-		
-	}
-
-	public Vector<VGangjwa> removeGangjwas() {
-		int[] indices = this.getSelectedRows();
-		Vector<VGangjwa> vRemovedGangjwas = new Vector<>();
-		
-		for(int i=indices.length-1; i>= 0; i--) {
-			VGangjwa vRemovedGangjwa = this.vGangjwas.remove(indices[i]);
-			vRemovedGangjwas.add(vRemovedGangjwa);
-		}
-		
-		this.updateTableData();
-		return vRemovedGangjwas;
-	}
-	
-//	private void moveSelectedGangjwas(Vector<VGangjwa> vSelectedGangjwas) {
-//		for(VGangjwa vSelectedGangjwa : vSelectedGangjwas) {
-//			
-//			boolean found = false;
-//			for(VGangjwa vGangjwa : this.vGangjwas) {
-//				if(vSelectedGangjwa.getNumber().equals(vGangjwa.getNumber())) {
-//					found = true;
-//					break;
-//				}
-//			}
-//			if(!found) {
-//				this.vGangjwas.add(vSelectedGangjwa);
-//			}
-//			
-//		}
-//	}
 	
 	private void updateTableData() {
 		this.tableModel.setRowCount(0);
@@ -97,11 +54,46 @@ public class PResult extends JTable {
 		this.updateTableData();		
 		
 	}
+	
+	public Vector<VGangjwa> removeGangjwas() {
+		int[] indices = this.getSelectedRows();
+		Vector<VGangjwa> vRemovedGangjwas = new Vector<>();
+		
+		for(int i=indices.length-1; i>= 0; i--) {
+			VGangjwa vRemovedGangjwa = this.vGangjwas.remove(indices[i]);
+			vRemovedGangjwas.add(vRemovedGangjwa);
+		}
+		
+		this.updateTableData();
+		return vRemovedGangjwas;
+	}
 
 	public Vector<VGangjwa> getGangjwas() {
-		// TODO Auto-generated method stub
+
 		return this.vGangjwas;
 	}
+	
+	public Vector<VGangjwa> removeDuplicated(Vector<VGangjwa> vSelectedGangjwas) {
+		
+		
+		for(int i = vSelectedGangjwas.size()-1; i>=0; i--) {
+			
+			for(VGangjwa vGangjwa : this.vGangjwas) {
+				if(vSelectedGangjwas.get(i).getNumber().equals(vGangjwa.getNumber())) {
+					vSelectedGangjwas.remove(i);
+					break;
+				}
+			}
+			
+		}
+		return vSelectedGangjwas;
+		
+	}
+
+	
+	
+	
+	
 
 	
 	

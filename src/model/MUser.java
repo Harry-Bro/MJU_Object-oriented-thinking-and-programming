@@ -1,5 +1,6 @@
 package model;
 
+import java.io.BufferedReader;
 import java.util.Scanner;
 
 public class MUser {
@@ -25,6 +26,23 @@ public class MUser {
 	}
 
 	public boolean read() {		
+//		String str[];
+//		try {
+//			str = scanner.readLine().split(" ");
+//			String userId = str[0];
+//			this.name = str[1];
+//			this.address = str[2];
+//			System.out.println(userId);
+//			if (this.userId.contentEquals(userId)) {
+////				System.out.println("same");
+//				return true;
+//			}
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+
 		String userId = scanner.next();
 		this.name = scanner.next();
 		this.address = scanner.next();
@@ -32,6 +50,7 @@ public class MUser {
 		if (this.userId.contentEquals(userId)) {
 			return true;
 		}
+		
 		return false;
 	}
 }

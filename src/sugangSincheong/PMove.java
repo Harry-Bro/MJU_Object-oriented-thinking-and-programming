@@ -18,6 +18,10 @@ public class PMove extends JPanel {
 		
 		this.moveRight = new JButton(">>");
 		this.moveLeft = new JButton("<<");
+		
+		this.moveRight.addActionListener(actionHandler);
+		this.moveLeft.addActionListener(actionHandler);
+		
 		this.add(moveRight);
 		this.add(moveLeft);
 	}
@@ -29,11 +33,11 @@ public class PMove extends JPanel {
 
 	public Object getMoveRightButton() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.moveRight;
 	}
 
 	public Object getMoveLeftButton() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.moveLeft;
 	}
 }

@@ -26,6 +26,7 @@ public class PContentPanel extends JPanel {
 	public PContentPanel() {
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
+		this.actionHandler = new ActionHandler();
 		this.listSelectionHandler = new ListSelectionHandler();
 		
 		this.pSelection = new PSelection(listSelectionHandler);
@@ -54,18 +55,19 @@ public class PContentPanel extends JPanel {
 		this.pSincheong.initialize();
 		
 	}
-///////////////////////////////////////////////////////
-// table event handler
-///////////////////////////////////////////////////
+	
+	/////////////////////////////
+	// table event handler
+	/////////////////////////////
 	
 	private void updateGangjwas(Object source) {
-		
-		
+				
 		String fileName = this.pSelection.getHakgwaSelection().update(source);
 		Vector<VGangjwa> vGangjwas = this.pSelection.getGangjwaSelection().getData(fileName);
 		vGangjwas = this.pMiridamgi.removeDuplicated(vGangjwas);
 		vGangjwas = this.pSincheong.removeDuplicated(vGangjwas);
 		this.pSelection.getGangjwaSelection().updateTableContents(vGangjwas);
+		
 	}
 	
 	public class ListSelectionHandler implements ListSelectionListener {
@@ -75,13 +77,14 @@ public class PContentPanel extends JPanel {
 		}
 	}
 	
-///////////////////////////////////////////////////////
+	/////////////////////////////
 	// button event handler
-	///////////////////////////////////////////////////
+	/////////////////////////////
 	private void moveGangjwas(Object source) {
 		Vector<VGangjwa> vSelectedGangjwas;
 		
 		if(source.equals(this.pMove1.getMoveRightButton())) {
+			System.out.println("move1right");
 			
 			vSelectedGangjwas = this.pSelection.getSelectedGangjwas();
 			vSelectedGangjwas = this.pMiridamgi.removeDuplicated(vSelectedGangjwas);
@@ -97,7 +100,7 @@ public class PContentPanel extends JPanel {
 		} else if(source.equals(this.pMove2.getMoveRightButton())) {
 			
 			vSelectedGangjwas = this.pMiridamgi.removeGangjwas();
-			this.pMiridamgi.addGangjwas(vSelectedGangjwas);
+			this.pSincheong.addGangjwas(vSelectedGangjwas);
 			
 		} else if(source.equals(this.pMove2.getMoveLeftButton())) {
 			
@@ -129,6 +132,7 @@ public class PContentPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
+			System.out.println("button click");
 			moveGangjwas(event.getSource());
 		}
 		

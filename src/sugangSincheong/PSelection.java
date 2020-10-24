@@ -19,7 +19,6 @@ public class PSelection extends JPanel {
 	
 	public PSelection(ListSelectionListener listSelectionHandler) {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-//		listSelectionHandler = new ListSelectionHandler();
 		
 		this.pHakgwaSelection = new PHakgwaSelection(listSelectionHandler);
 		this.add(this.pHakgwaSelection);
@@ -31,46 +30,27 @@ public class PSelection extends JPanel {
 	}
 	
 	public void initialize() {
-		this.pHakgwaSelection.initialize(pGangjwaSelection);
+		this.pHakgwaSelection.initialize();
 		String fileName = this.pHakgwaSelection.getFileName();
 		this.pGangjwaSelection.initialize(fileName);
 	}
 	
-//	private void update(Object source) {
-//		this.pHakgwaSelection.update(source);
-//		String fileName = this.pHakgwaSelection.getFileName();
-//		this.pGangjwaSelection.update(fileName);
-//	}
+	public PHakgwaSelection getHakgwaSelection() {
+		
+		return this.pHakgwaSelection;
+	}
 	
-//	public class ListSelectionHandler implements ListSelectionListener {
-//		@Override
-//		public void valueChanged(ListSelectionEvent event) {
-//			update(event.getSource());			
-//		}
-//	}
+	public PGangjwaSelection getGangjwaSelection() {
+
+		return this.pGangjwaSelection;
+	}
 
 	public Vector<VGangjwa> getSelectedGangjwas() {
 		
 		
 		return this.pGangjwaSelection.getSelectedGangjwas();
 	}
-
-	public Vector<VGangjwa> removeGangjwas() {
-		
-		
-		return null;
-	}
-
-	public PHakgwaSelection getHakgwaSelection() {
-		// TODO Auto-generated method stub
-		
-		return this.pHakgwaSelection;
-	}
-
-	public PGangjwaSelection getGangjwaSelection() {
-		// TODO Auto-generated method stub
-		return this.pGangjwaSelection;
-	}
-
+	
+	
 	
 }

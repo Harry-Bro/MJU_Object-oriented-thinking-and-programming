@@ -21,12 +21,8 @@ public class PHakgwaSelection extends JPanel {
 	private PDirectory pHakgwa;
 	
 	private String fileName;
-	private String campusName;
-	private String collegeName;
-	private String hakgwaName;
-	private String gangjwaNum;
-	
-	private boolean initialized = false;
+
+
 	
 	private PGangjwaSelection pGangjwaSelection;
 	
@@ -52,7 +48,7 @@ public class PHakgwaSelection extends JPanel {
 		this.add(scrollpane);	
 
 	}
-	public void initialize(PGangjwaSelection pGangjwaSelection) {
+	public void initialize() {
 		fileName = this.pCampus.initialize(fileName);
 		fileName = this.pCollege.initialize(fileName);
 		fileName = this.pHakgwa.initialize(fileName);		
@@ -106,6 +102,7 @@ public class PHakgwaSelection extends JPanel {
 			header.addElement(title);
 			this.tableModel = new DefaultTableModel(header, 0);
 			this.setModel(this.tableModel);
+			
 		}
 
 		public String initialize(String fileName) {

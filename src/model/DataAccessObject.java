@@ -1,7 +1,9 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -10,7 +12,7 @@ public class DataAccessObject {
 	public MLogin getLogin(String userId) {
 		MLogin mLogin = null;
 		try {
-			Scanner scanner = new Scanner(new File("userInfo/userId"));
+			Scanner scanner = new Scanner(new File("userInfo/userId"), "MS949");
 			mLogin = new MLogin(scanner, userId);
 			while (scanner.hasNext()) {
 				boolean found = mLogin.read();
@@ -29,7 +31,8 @@ public class DataAccessObject {
 	public MUser getUser(String userId) {
 		MUser mUser = null;
 		try {
-			Scanner scanner = new Scanner(new File("userInfo/"+userId));
+			Scanner scanner = new Scanner(new File("userInfo/"+userId), "MS949");
+
 			mUser = new MUser(scanner, userId);
 			while (scanner.hasNext()) {
 				boolean found = mUser.read();
@@ -48,7 +51,7 @@ public class DataAccessObject {
 	public Vector<MDirectory> getDirectories(String fileName) {
 		Vector<MDirectory> mDirectories = new Vector<MDirectory>();
 		try {
-			Scanner scanner = new Scanner(new File("lectureInfo/"+ fileName));
+			Scanner scanner = new Scanner(new File("lectureInfo/"+ fileName), "MS949");
 			while (scanner.hasNext()) {
 				MDirectory mDirectory = new MDirectory(scanner);
 				mDirectory.read();
@@ -64,7 +67,7 @@ public class DataAccessObject {
 	public Vector<MGangjwa> getGangjwa(String fileName) {
 		Vector<MGangjwa> mGangjwas = new Vector<MGangjwa>();
 		try {
-			Scanner scanner = new Scanner(new File("lectureInfo/"+fileName));
+			Scanner scanner = new Scanner(new File("lectureInfo/"+fileName), "MS949");
 			while (scanner.hasNext()) {
 				MGangjwa mGangjwa = new MGangjwa(scanner);
 				mGangjwa.read();

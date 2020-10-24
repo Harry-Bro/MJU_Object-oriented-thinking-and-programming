@@ -8,21 +8,22 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import control.CGangjwa;
-import sugangSincheong.PSelection.ListSelectionHandler;
+
 import valueObject.VGangjwa;
 
 public class PGangjwaSelection extends JTable {
 	
-	private final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-	 DefaultTableModel tableModel;
+	DefaultTableModel tableModel;
 	 
 	 Vector<String> header;	 
 	 Vector<VGangjwa> vGangjwas;
+	 ListSelectionListener listSelectionHandler;
 
 	public PGangjwaSelection(ListSelectionListener ListSelectionHandler) {
 		
-		this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		this.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		
 	    header = new Vector<String>();
 		header.addElement("°­ÁÂ¹øÈ£");
@@ -33,8 +34,7 @@ public class PGangjwaSelection extends JTable {
 		
 		this.tableModel = new DefaultTableModel(header, 0);
 		this.setModel(this.tableModel);
-		this.getSelectionModel().addListSelectionListener(ListSelectionHandler);
-		
+		this.getSelectionModel().addListSelectionListener(this.listSelectionHandler);		
 		
 	}
 	
@@ -55,11 +55,18 @@ public class PGangjwaSelection extends JTable {
 		return vSelectedGangjwas;
 	}
 	
-
+	public Vector<VGangjwa> getData(String fileName) {
+		
+		CGangjwa cGangjwa = new CGangjwa();
+		Vector<VGangjwa> newVGangjwa = cGangjwa.getData(fileName);
+		return newVGangjwa;
+		
+	}
 	
-	private void updateTableContents(Vector<VGangjwa> newGangjwas) {
-		// TODO Auto-generated method stub
-//		CGangjwa cGangjwa = new CGangjwa();
+	public void updateTableContents(Vector<VGangjwa> newGangjwas) {
+
+		this.getSelectionModel().removeListSelectionListener(this.listSelectionHandler);
+	
 		this.vGangjwas= newGangjwas;
 		this.tableModel.setRowCount(0);
 		this.tableModel = new DefaultTableModel(header, 0);
@@ -77,10 +84,10 @@ public class PGangjwaSelection extends JTable {
 		if(vGangjwas.size()>0) {
 			this.setModel(this.tableModel);
 			this.getSelectionModel().addSelectionInterval(0, 0);
-			return vGangjwas.get(0).getNumber();
 		}
+		
+		this.getSelectionModel().addListSelectionListener(this.listSelectionHandler);
 			
-		return null;
 	}
 	
 	public void update(String fileName) {
@@ -90,11 +97,7 @@ public class PGangjwaSelection extends JTable {
 		
 	}
 
-	public Vector<VGangjwa> getData(String fileName) {
-		
-		Vector<VGangjwa>
-		
-	}
+
 
 	
 	
