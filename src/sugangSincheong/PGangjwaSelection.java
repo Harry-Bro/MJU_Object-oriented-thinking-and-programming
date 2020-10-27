@@ -52,7 +52,13 @@ public class PGangjwaSelection extends JTable {
 			vSelectedGangjwas.add(this.vGangjwas.get(index));
 		}
 		
+		for(int i = indices.length -1; i >= 0; i--) {
+			this.vGangjwas.remove(i);
+		}
+		updateTableContents(this.vGangjwas);
+		
 		return vSelectedGangjwas;
+		
 	}
 	
 	public Vector<VGangjwa> getData(String fileName) {
@@ -97,7 +103,7 @@ public class PGangjwaSelection extends JTable {
 		
 	}
 
-
+	
 
 	
 	

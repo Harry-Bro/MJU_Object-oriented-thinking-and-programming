@@ -5,6 +5,7 @@ import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import control.CResult;
 import valueObject.VGangjwa;
 
 public class PResult extends JTable {
@@ -25,8 +26,19 @@ public class PResult extends JTable {
 		this.vGangjwas = new Vector<>();
 	}
 
-	public void initialize() {
-		// TODO Auto-generated method stub
+	public void initialize(String fileName) {
+		
+		CResult cResult = new CResult();
+		this.vGangjwas = cResult.get(fileName);
+		this.updateTableData();
+		
+	}
+	
+	public void save(String fileName) {
+		
+		CResult cResult = new CResult();
+		cResult.save(fileName, this.vGangjwas);
+		
 		
 	}
 	
@@ -89,6 +101,8 @@ public class PResult extends JTable {
 		return vSelectedGangjwas;
 		
 	}
+
+	
 
 	
 	

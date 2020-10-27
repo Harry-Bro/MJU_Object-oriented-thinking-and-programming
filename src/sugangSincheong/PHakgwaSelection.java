@@ -6,6 +6,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
@@ -82,7 +83,7 @@ public class PHakgwaSelection extends JPanel {
 		
 	}
 	
-	private class PDirectory extends JTable {
+	class PDirectory extends JTable {
 		private static final long serialVersionUID = 1L;
 
 		private DefaultTableModel tableModel;
@@ -94,8 +95,10 @@ public class PHakgwaSelection extends JPanel {
 		
 		public PDirectory(String title, ListSelectionListener listSelectionHandler) {
 			// attributes
+			this.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			this.listSelectionHandler = listSelectionHandler;
 			this.getSelectionModel().addListSelectionListener(this.listSelectionHandler);
+			
 			
 			// data model
 			header = new Vector<String>();
@@ -112,8 +115,11 @@ public class PHakgwaSelection extends JPanel {
 		
 		public String getSelectedFileName() {
 			int selectedIndex = this.getSelectedRow();
-			String selectedFileName = this.vDirectories.get(selectedIndex).getFileName();
-			return selectedFileName;
+			if(selectedIndex >= 0) {
+				String selectedFileName = this.vDirectories.get(selectedIndex).getFileName();
+				return selectedFileName;
+			}
+			return null;
 		}
 
 		public String getData(String fileName) {
@@ -143,24 +149,29 @@ public class PHakgwaSelection extends JPanel {
 		public Vector<VDirectory> getDirectory() {
 			return this.vDirectories;
 		}
+		
+		public void listClick() {
+			
+			int row = this.getSelectedRow();
+			System.out.println(row);
+			
+			if(row == 0) {
+				this.getSelectionModel().addSelectionInterval(1, 1);
+				this.getSelectionModel().addSelectionInterval(row, row);
+				
+			} else {
+				this.getSelectionModel().addSelectionInterval(0, 0);
+				this.getSelectionModel().addSelectionInterval(row, row);
+			}
+			
+		}
 	}
-
+	
+	public PDirectory getHakgwa() {
+		return this.pHakgwa;
+	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
