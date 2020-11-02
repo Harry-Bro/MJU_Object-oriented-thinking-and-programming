@@ -88,7 +88,6 @@ public class PContentPanel extends JPanel {
 		@Override
 		public void valueChanged(ListSelectionEvent event) {
 			updateGangjwas(event.getSource());
-			System.out.println("list change");
 		}
 	}
 	

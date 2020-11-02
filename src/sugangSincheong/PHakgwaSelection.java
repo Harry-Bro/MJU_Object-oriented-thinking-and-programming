@@ -70,7 +70,7 @@ public class PHakgwaSelection extends JPanel {
 			this.fileName = this.pHakgwa.getData(this.fileName);
 			
 		} else if (source.equals(this.pCollege.getSelectionModel())) {
-			
+																
 			this.fileName = this.pCollege.getSelectedFileName();
 			this.fileName = this.pHakgwa.getData(this.fileName);
 			
