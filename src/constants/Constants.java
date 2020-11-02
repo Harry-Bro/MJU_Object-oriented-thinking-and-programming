@@ -10,7 +10,10 @@ public class Constants {
 		passwordLabel("비밀번호"),
 		sizePasswordText("10"),
 		okButtonLabel("ok"),
-		cancelButtonLabel("cancel");
+		cancelButtonLabel("cancel"),
+		
+		noAccountInfo("회원 정보가 존재하지 않음."),
+		loginFailed("아이디나 비밀번호가 다릅니다.");
 		
 		private String text;
 		private ELoginDialog(String text) {
@@ -26,16 +29,22 @@ public class Constants {
 
 	
 	public enum EMainFrame {
-		WIDTH(1000),
-		HEIGHT(600);
 		
-		private int size;
+		width("1000"),
+		height("600");
+		
+		private String text;
 	
-		EMainFrame(int size) {
-			this.size = size;
+		private EMainFrame(String text) {
+			this.text = text;
 		}
-		public int getSize() {
-			return this.size;
+		
+		public String getText() {
+			return this.text;
+		}
+		
+		public int getInt() {
+			return Integer.parseInt(text);
 		}
 	}
 	

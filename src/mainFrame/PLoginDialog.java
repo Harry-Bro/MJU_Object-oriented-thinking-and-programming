@@ -16,22 +16,29 @@ import valueObject.VLogin;
 import valueObject.VUser;
 
 public class PLoginDialog extends JDialog {
+	// attributes
 	private static final long serialVersionUID = 1L;
 
+	// components
 	private JLabel userIdLabel;
 	private JTextField UserIdTextField;
 	private JLabel passwordLabel;
 	private JTextField passwordTextField;
 	private JButton okButton;
 	private JButton cancelButton;
+	
+	private CLogin cLogin;
+	private CUser cUser;
 		
 	public PLoginDialog(ActionHandler actionHandler) {
+		// attributes
 		this.setSize(ELoginDialog.width.getInt(), ELoginDialog.height.getInt());
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 
 		this.setLayout(new FlowLayout());
 		
+		// components
 		JPanel line1 = new JPanel();
 			this.userIdLabel = new JLabel(ELoginDialog.nameLabel.getText());
 			line1.add(this.userIdLabel);		
@@ -56,6 +63,10 @@ public class PLoginDialog extends JDialog {
 			this.cancelButton.setActionCommand(this.cancelButton.getText());
 			line3.add(this.cancelButton);
 		this.add(line3);
+		
+		// control
+		this.cLogin = new CLogin();
+		this.cUser = new CUser();
 	}
 	
 	public void initialize() {
@@ -65,18 +76,18 @@ public class PLoginDialog extends JDialog {
 		VUser vUser = null;
 		if (actionCommand.contentEquals(this.okButton.getText())) {
 			VLogin vLogin = new VLogin(this.UserIdTextField.getText(), this.passwordTextField.getText());	
-			CLogin cLogin = new CLogin();
+
 			boolean bLoginSuccess = cLogin.validate(vLogin);			
 			if (bLoginSuccess) {
-				CUser cUser = new CUser();
+				
 				vUser = cUser.getUser(vLogin.getUserId());			
 				if (vUser == null) {
 					// 시스템 에러 - 회원 정보가 존재 하지 않음
-					JOptionPane.showConfirmDialog(this, "회원 정보가 존재 하지 않음");
+					JOptionPane.showConfirmDialog(this, ELoginDialog.noAccountInfo.getText());
 				}
 			} else {
 				// 
-				JOptionPane.showConfirmDialog(this, "아이디나 비밀번호가 다릅니다.");
+				JOptionPane.showConfirmDialog(this, ELoginDialog.loginFailed.getText());
 			}
 		}
 		return vUser;
