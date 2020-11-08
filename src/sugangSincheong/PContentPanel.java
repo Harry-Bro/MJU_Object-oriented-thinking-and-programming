@@ -9,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import constants.Constants.EConfiguration;
 import valueObject.VGangjwa;
 import valueObject.VUser;
 
@@ -16,15 +17,16 @@ public class PContentPanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 
+	private ListSelectionListener listSelectionHandler;
 	private PSelection pSelection;
-	private PMove pMove1;
+	
 	private PResult pMiridamgi;
-	private PMove pMove2;
 	private PResult pSincheong;
 	private VUser vUser;
 	
 	private ActionListener actionHandler;
-	private ListSelectionListener listSelectionHandler;
+	private PMove pMove1;
+	private PMove pMove2;
 
 	
 	public PContentPanel() {
@@ -54,19 +56,20 @@ public class PContentPanel extends JPanel {
 	public void initialize(VUser vUser) {
 		this.vUser = vUser;
 		
-		this.pSelection.initialize();
 		this.pMove1.initialize();
-		this.pMiridamgi.initialize(vUser.getUserId() + "M");
 		this.pMove2.initialize();
-		this.pSincheong.initialize(vUser.getUserId() + "S");
 		
-		this.pSelection.getHakgwaSelection().getHakgwa().listClick();
+		this.pMiridamgi.initialize(vUser.getUserId() + EConfiguration.miridamgiFilePostfix.getText());
+		this.pSincheong.initialize(vUser.getUserId() + EConfiguration.sincheongFilePostfix.getText());
+		
+		this.pSelection.initialize(this.pMiridamgi.getGangjwas(), this.pSincheong.getGangjwas());
+//		this.pSelection.getHakgwaSelection().getHakgwa().listClick();
 		
 	}
 	
 	public void save() {
-		this.pMiridamgi.save(vUser.getUserId() + "M");
-		this.pSincheong.save(vUser.getUserId() + "S");
+		this.pMiridamgi.save(vUser.getUserId() + EConfiguration.miridamgiFilePostfix.getText());
+		this.pSincheong.save(vUser.getUserId() + EConfiguration.sincheongFilePostfix.getText());
 		
 	}
 	
@@ -75,12 +78,8 @@ public class PContentPanel extends JPanel {
 	/////////////////////////////
 	
 	private void updateGangjwas(Object source) {
-				
-		String fileName = this.pSelection.getHakgwaSelection().update(source);
-		Vector<VGangjwa> vGangjwas = this.pSelection.getGangjwaSelection().getData(fileName);
-		vGangjwas = this.pMiridamgi.removeDuplicated(vGangjwas);
-		vGangjwas = this.pSincheong.removeDuplicated(vGangjwas);
-		this.pSelection.getGangjwaSelection().updateTableContents(vGangjwas);
+		
+		this.pSelection.updateGangjwas(source, this.pMiridamgi.getGangjwas(), this.pSincheong.getGangjwas());
 		
 	}
 	
@@ -105,12 +104,12 @@ public class PContentPanel extends JPanel {
 			vSelectedGangjwas = this.pSincheong.removeDuplicated(vSelectedGangjwas);
 			
 			this.pMiridamgi.addGangjwas(vSelectedGangjwas);
-			this.pSelection.getHakgwaSelection().getHakgwa().listClick();
+//			this.pSelection.getHakgwaSelection().getHakgwa().listClick();
 			
 		} else if(source.equals(this.pMove1.getMoveLeftButton())) {
 			
 			vSelectedGangjwas = this.pMiridamgi.removeGangjwas();
-			this.pSelection.getHakgwaSelection().getHakgwa().listClick();
+//			this.pSelection.getHakgwaSelection().getHakgwa().listClick();
 			
 		} else if(source.equals(this.pMove2.getMoveRightButton())) {
 			

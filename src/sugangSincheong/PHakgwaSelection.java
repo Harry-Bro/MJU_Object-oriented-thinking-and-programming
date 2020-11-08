@@ -10,6 +10,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import constants.Constants.EConfiguration;
+import constants.Constants.EDirecory;
 import control.CDirectory;
 import sugangSincheong.PContentPanel.ListSelectionHandler;
 import valueObject.VDirectory;
@@ -17,43 +19,40 @@ import valueObject.VDirectory;
 public class PHakgwaSelection extends JPanel {
 	private static final long serialVersionUID = 1L;
 
+	private String fileName;
+	
 	private PDirectory pCampus;
 	private PDirectory pCollege;
 	private PDirectory pHakgwa;
 	
-	private String fileName;
 
-
-	
-	private PGangjwaSelection pGangjwaSelection;
-	
 	public PHakgwaSelection(ListSelectionListener listSelectionHandler) {
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		this.fileName = "root";
+		this.fileName = EConfiguration.rootFileName.getText();
 		
 		
 		JScrollPane scrollpane;
 		scrollpane = new JScrollPane();
-		this.pCampus = new PDirectory("Ä·ÆÛ½º", listSelectionHandler);
+		this.pCampus = new PDirectory(EDirecory.campus.getText(), listSelectionHandler);
 		scrollpane.setViewportView(this.pCampus);
 		this.add(scrollpane);
 		
 		scrollpane = new JScrollPane();
-		this.pCollege = new PDirectory("´ëÈø", listSelectionHandler);
+		this.pCollege = new PDirectory(EDirecory.college.getText(), listSelectionHandler);
 		scrollpane.setViewportView(this.pCollege);
 		this.add(scrollpane);
 		
 		scrollpane = new JScrollPane();
-		this.pHakgwa = new PDirectory("ÇÐ°ú", listSelectionHandler);
+		this.pHakgwa = new PDirectory(EDirecory.hakgwa.getText(), listSelectionHandler);
 		scrollpane.setViewportView(this.pHakgwa);
 		this.add(scrollpane);	
 
 	}
+	
 	public void initialize() {
 		fileName = this.pCampus.initialize(fileName);
 		fileName = this.pCollege.initialize(fileName);
-		fileName = this.pHakgwa.initialize(fileName);		
-		
+		fileName = this.pHakgwa.initialize(fileName);				
 	}
 	
 	public String getFileName() {
@@ -64,8 +63,7 @@ public class PHakgwaSelection extends JPanel {
 
 		if (source.equals(this.pCampus.getSelectionModel())) {
 			
-			this.fileName = this.pCampus.getSelectedFileName();
-			
+			this.fileName = this.pCampus.getSelectedFileName();			
 			this.fileName = this.pCollege.getData(this.fileName);
 			this.fileName = this.pHakgwa.getData(this.fileName);
 			
@@ -79,7 +77,7 @@ public class PHakgwaSelection extends JPanel {
 			this.fileName = this.pHakgwa.getSelectedFileName();
 		}
 		
-		return fileName;
+		return this.fileName;
 		
 	}
 	
@@ -149,26 +147,7 @@ public class PHakgwaSelection extends JPanel {
 		public Vector<VDirectory> getDirectory() {
 			return this.vDirectories;
 		}
-		
-		public void listClick() {
-			
-			int row = this.getSelectedRow();
-			System.out.println(row);
-			
-			if(row == 0) {
-				this.getSelectionModel().addSelectionInterval(1, 1);
-				this.getSelectionModel().addSelectionInterval(row, row);
-				
-			} else {
-				this.getSelectionModel().addSelectionInterval(0, 0);
-				this.getSelectionModel().addSelectionInterval(row, row);
-			}
-			
-		}
-	}
-	
-	public PDirectory getHakgwa() {
-		return this.pHakgwa;
+
 	}
 	
 }

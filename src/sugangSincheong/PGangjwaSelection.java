@@ -38,8 +38,8 @@ public class PGangjwaSelection extends JTable {
 		
 	}
 	
-	public void initialize(String fileName) {
-			this.update(fileName);
+	public void initialize(String fileName, Vector<VGangjwa> miridamgiGangjwas, Vector<VGangjwa> sincheongGangjwas) {
+			this.update(fileName, miridamgiGangjwas, sincheongGangjwas);
 	}
 	
 	public Vector<VGangjwa> getData() {
@@ -59,29 +59,43 @@ public class PGangjwaSelection extends JTable {
 		for(int i = indices.length -1; i >= 0; i--) {
 			this.vGangjwas.remove(i);
 		}
-		updateTableContents(this.vGangjwas);
+		updateTableContents();
 		
 		return vSelectedGangjwas;
 		
 	}
 	
-	public Vector<VGangjwa> getData(String fileName) {
+	private void getData(String fileName) {
 		
 		CGangjwa cGangjwa = new CGangjwa();
-		Vector<VGangjwa> newVGangjwa = cGangjwa.getData(fileName);
-		return newVGangjwa;
+		this.vGangjwas = cGangjwa.getData(fileName);
+				
+	}
+	
+	public Vector<VGangjwa> removeDuplicated(Vector<VGangjwa> vSelectedGangjwas) {
+		
+		
+		for(int i = this.vGangjwas.size()-1; i>=0; i--) {			
+			for(VGangjwa vGangjwa : vSelectedGangjwas) {
+				if(this.vGangjwas.get(i).getNumber().equals(vGangjwa.getNumber())) {
+					this.vGangjwas.remove(i);
+					break;
+				}
+			}			
+		}
+		
+		return vSelectedGangjwas;
 		
 	}
 	
-	public void updateTableContents(Vector<VGangjwa> newGangjwas) {
+	private void updateTableContents() {
 
 		this.getSelectionModel().removeListSelectionListener(this.listSelectionHandler);
 	
-		this.vGangjwas= newGangjwas;
 		this.tableModel.setRowCount(0);
 		this.tableModel = new DefaultTableModel(header, 0);
 
-		for(VGangjwa vGangjwa : vGangjwas) {
+		for(VGangjwa vGangjwa : this.vGangjwas) {
 			Vector<String> row = new Vector<String>();
 			row.add(vGangjwa.getNumber());
 			row.add(vGangjwa.getName());
@@ -91,7 +105,7 @@ public class PGangjwaSelection extends JTable {
 			this.tableModel.addRow(row);	
 		}
 		
-		if(vGangjwas.size()>0) {
+		if(this.vGangjwas.size()>0) {
 			this.setModel(this.tableModel);
 			this.getSelectionModel().addSelectionInterval(0, 0);
 		}
@@ -100,10 +114,13 @@ public class PGangjwaSelection extends JTable {
 			
 	}
 	
-	public void update(String fileName) {
-		Vector<VGangjwa> newGangjwas = this.getData(fileName);
 
-		this.updateTableContents(newGangjwas);
+	public void update(String fileName, Vector<VGangjwa> miridamgiGangjwas, Vector<VGangjwa> sincheongGangjwas) {
+		
+		this.getData(fileName);
+		this.removeDuplicated(miridamgiGangjwas);
+		this.removeDuplicated(sincheongGangjwas);
+		this.updateTableContents();
 		
 	}
 

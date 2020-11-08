@@ -103,13 +103,6 @@ public class PResult extends JTable {
 	}
 
 	
-
-	
-	
-	
-	
-
-	
 	
 	
 }

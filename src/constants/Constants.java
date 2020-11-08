@@ -2,6 +2,25 @@ package constants;
 
 public class Constants {
 	
+	public enum EConfiguration {
+		
+		miridamgiFilePostfix("M"),
+		sincheongFilePostfix("S"),
+		rootFileName("root");
+		
+		private String text;
+		private EConfiguration(String text) {
+			this.text = text;
+		}
+		public String getText() {
+			return this.text;
+		}
+		public int getInt() {
+			return Integer.parseInt(text);
+		}
+		
+	}
+	
 	public enum ELoginDialog {
 		width("300"),
 		height("200"),
@@ -94,6 +113,25 @@ public class Constants {
 		public String getText() {
 			return this.text;
 		}
+	}
+	
+	public enum EDirecory {
+		
+		campus("캠퍼"),
+		college("대학"),
+		hakgwa("학과");
+		
+		private String text;
+		private EDirecory(String text) {
+			this.text = text;
+		}
+		public String getText() {
+			return this.text;
+		}
+		public int getInt() {
+			return Integer.parseInt(text);
+		}
+		
 	}
 	
 }
