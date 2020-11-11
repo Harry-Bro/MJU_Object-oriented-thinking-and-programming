@@ -2,6 +2,8 @@ package constants;
 
 public class Constants {
 	
+	
+
 	public enum EConfiguration {
 		
 		miridamgiFilePostfix("M"),
@@ -81,6 +83,32 @@ public class Constants {
 		}
 	}
 	
+	public enum EToolBar{
+		
+		BASKET("BASKET", "data/BASKET.png"),
+		ENROLLMENT("actionHandler", "data/ENROLLMENT.png"),
+		PERSONAL("PERSONAL", "data/PERSONAL.png"),
+		GRADE("GRADE", "data/GRADE.png");
+		
+		
+		private String text;
+		private String path;
+
+		EToolBar(String text, String path){
+			this.text = text;
+			this.path=path;
+		}
+
+		public String getText() {
+			return this.text;
+		}
+		
+		public String getPath() {
+			return this.path;
+		}
+
+	}
+	
 	public enum EFileMenu {
 		NEW("생성"),
 		OPEN("열기"),
@@ -132,6 +160,43 @@ public class Constants {
 			return Integer.parseInt(text);
 		}
 		
+	}
+	
+	public enum EPGangjwaSelection {
+		
+		gangjwaNo("강좌번호"),
+		gangjwaName("강좌이름"),
+		damdangGyosu("담당"),
+		hakjeom("학점"),
+		time("시간");
+		
+		private String text;
+		private EPGangjwaSelection(String text) {
+			this.text = text;
+		}
+		public String getText() {
+			return this.text;
+		}
+		public int getInt() {
+			return Integer.parseInt(text);
+		}
+	}
+	
+	public enum EPResult {
+		
+		gangjwaNo("강좌번호"),
+		gangjwaName("강좌이름");
+		
+		private String text;
+		private EPResult(String text) {
+			this.text = text;
+		}
+		public String getText() {
+			return this.text;
+		}
+		public int getInt() {
+			return Integer.parseInt(text);
+		}
 	}
 	
 }

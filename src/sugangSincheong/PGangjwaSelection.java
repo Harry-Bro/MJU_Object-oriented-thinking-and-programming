@@ -7,6 +7,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import constants.Constants.EPGangjwaSelection;
 import control.CGangjwa;
 
 import valueObject.VGangjwa;
@@ -15,31 +16,36 @@ public class PGangjwaSelection extends JTable {
 	
 	private static final long serialVersionUID = 1L;
 
-	DefaultTableModel tableModel;
+	private DefaultTableModel tableModel;
 	 
-	 Vector<String> header;	 
-	 Vector<VGangjwa> vGangjwas;
-	 ListSelectionListener listSelectionHandler;
+	private Vector<String> header;	 
+	private Vector<VGangjwa> vGangjwas;
+	private ListSelectionListener listSelectionHandler;
+	private CGangjwa cGangjwa;
+	
+	private PResult pMiridamgi;
+	private PResult pSincheong;
 
 	public PGangjwaSelection(ListSelectionListener ListSelectionHandler) {
 		
-		this.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+//		this.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		
 	    header = new Vector<String>();
-		header.addElement("강좌번호");
-		header.addElement("강좌명");
-		header.addElement("담당교수");
-		header.addElement("학점");
-		header.addElement("시간");
+	    
+	    for(EPGangjwaSelection eGangjwaSelection: EPGangjwaSelection.values()) {
+	    	header.addElement(eGangjwaSelection.getText());
+	    }
 		
 		this.tableModel = new DefaultTableModel(header, 0);
 		this.setModel(this.tableModel);
-		this.getSelectionModel().addListSelectionListener(this.listSelectionHandler);		
+//		this.getSelectionModel().addListSelectionListener(this.listSelectionHandler);		
 		
 	}
 	
-	public void initialize(String fileName, Vector<VGangjwa> miridamgiGangjwas, Vector<VGangjwa> sincheongGangjwas) {
-			this.update(fileName, miridamgiGangjwas, sincheongGangjwas);
+	public void initialize(String fileName, PResult pMiridamgi, PResult pSincheong) {
+		this.pMiridamgi = pMiridamgi;
+		this.pSincheong = pSincheong;
+		this.update(fileName);
 	}
 	
 	public Vector<VGangjwa> getData() {
@@ -67,12 +73,12 @@ public class PGangjwaSelection extends JTable {
 	
 	private void getData(String fileName) {
 		
-		CGangjwa cGangjwa = new CGangjwa();
+		cGangjwa = new CGangjwa();
 		this.vGangjwas = cGangjwa.getData(fileName);
 				
 	}
 	
-	public Vector<VGangjwa> removeDuplicated(Vector<VGangjwa> vSelectedGangjwas) {
+	public void removeDuplicated(Vector<VGangjwa> vSelectedGangjwas) {
 		
 		
 		for(int i = this.vGangjwas.size()-1; i>=0; i--) {			
@@ -84,7 +90,7 @@ public class PGangjwaSelection extends JTable {
 			}			
 		}
 		
-		return vSelectedGangjwas;
+//		return vSelectedGangjwas;
 		
 	}
 	
@@ -115,17 +121,36 @@ public class PGangjwaSelection extends JTable {
 	}
 	
 
-	public void update(String fileName, Vector<VGangjwa> miridamgiGangjwas, Vector<VGangjwa> sincheongGangjwas) {
+	public void update(String fileName) {
 		
 		this.getData(fileName);
-		this.removeDuplicated(miridamgiGangjwas);
-		this.removeDuplicated(sincheongGangjwas);
+		this.removeDuplicated(this.pMiridamgi.getGangjwas());
+		this.removeDuplicated(this.pSincheong.getGangjwas());
 		this.updateTableContents();
 		
 	}
-
 	
-
+	public Vector<VGangjwa> removeSelectedGangjwas() {
+		
+		int[] indices = this.getSelectedRows();
+		Vector<VGangjwa> vRemovedGangjwas = new Vector<VGangjwa>();
+		
+		for(int i = indices.length-1; i>= 0; i--) {
+			
+			VGangjwa vRemovedGangjwa = this.vGangjwas.remove(indices[i]);
+			vRemovedGangjwas.add(vRemovedGangjwa);
+			
+		}
+		this.updateTableContents();
+		
+		return vRemovedGangjwas;
+		
+	}
+	
+	public void addGangjwas(Vector<VGangjwa> vSelectedGangjwas) {
+		this.vGangjwas.addAll(vSelectedGangjwas);
+		this.updateTableContents();
+	}
 	
 	
 }

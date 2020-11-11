@@ -86,9 +86,10 @@ public class PHakgwaSelection extends JPanel {
 
 		private DefaultTableModel tableModel;
 		
-		ListSelectionListener listSelectionHandler;
-		Vector<String> header;
+		private ListSelectionListener listSelectionHandler;
+		private Vector<String> header;
 		private Vector<VDirectory> vDirectories;
+		private CDirectory cDirectory;
 		
 		
 		public PDirectory(String title, ListSelectionListener listSelectionHandler) {
@@ -126,7 +127,7 @@ public class PHakgwaSelection extends JPanel {
 			// tablemodel의 rowCount를 0으로 만들어서 초괴화를 한다.
 			this.tableModel.setRowCount(0);
 			
-			CDirectory cDirectory = new CDirectory();
+			cDirectory = new CDirectory();
 			this.vDirectories = cDirectory.getData(fileName);
 			for (VDirectory vDirectory: this.vDirectories) {
 				Vector<String> row = new Vector<String>();

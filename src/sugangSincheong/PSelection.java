@@ -11,7 +11,7 @@ import javax.swing.event.ListSelectionListener;
 
 import valueObject.VGangjwa;
 
-public class PSelection extends JPanel {
+public class PSelection extends PGangjwaContainer {
 	private static final long serialVersionUID = 1L;
 
 	private PHakgwaSelection pHakgwaSelection;
@@ -29,15 +29,15 @@ public class PSelection extends JPanel {
 		this.add(scrollPane);
 	}
 	
-	public void initialize(Vector<VGangjwa> miridamgiGangjwas, Vector<VGangjwa> sincheongGangjwas) {
+	public void initialize(PResult pMiridamgi, PResult pSincheong) {
 		this.pHakgwaSelection.initialize();
 		String fileName = this.pHakgwaSelection.getFileName();
-		this.pGangjwaSelection.initialize(fileName, miridamgiGangjwas, sincheongGangjwas);
+		this.pGangjwaSelection.initialize(fileName, pMiridamgi, pSincheong);
 	}
 
-	public void updateGangjwas(Object source, Vector<VGangjwa> miridamgiGangjwas, Vector<VGangjwa> sincheongGangjwas) {
+	public void updateGangjwas(Object source) {
 		String fileName = this.pHakgwaSelection.update(source);
-		this.pGangjwaSelection.update(fileName, miridamgiGangjwas, sincheongGangjwas);
+		this.pGangjwaSelection.update(fileName);
 		
 	}
 	
@@ -45,6 +45,19 @@ public class PSelection extends JPanel {
 		
 		return this.pGangjwaSelection.getSelectedGangjwas();
 	}
+
+	@Override
+	public void addGangjwas(Vector<VGangjwa> vSelectedGangjwas) {
+		String fileName = this.pHakgwaSelection.getFileName();
+		this.pGangjwaSelection.update(fileName);
+	}
+	
+	@Override
+	public Vector<VGangjwa> removeSelectedGangjwas() {
+		return this.pGangjwaSelection.removeSelectedGangjwas();		
+	}
+
+		
 	
 	
 }

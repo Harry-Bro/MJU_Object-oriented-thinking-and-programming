@@ -26,8 +26,8 @@ public class Main {
 			this.pMainFrame = new PMainFrame();
 			this.pMainFrame.setVisible(true);
 			this.pMainFrame.initialize(vUser);
+			this.pLoginDialog.dispose();
 		}
-		this.pLoginDialog.dispose();
 	}
 	
 	public class ActionHandler implements ActionListener {

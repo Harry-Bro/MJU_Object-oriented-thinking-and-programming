@@ -42,15 +42,16 @@ public class PContentPanel extends JPanel {
 		this.add(this.pMove1);
 		
 		this.pMiridamgi = new PResult();
-		JScrollPane scrollPane = new JScrollPane(this.pMiridamgi);
-		this.add(scrollPane);
-		
+//		JScrollPane scrollPane = new JScrollPane(this.pMiridamgi);
+//		this.add(scrollPane);
+		this.add(pMiridamgi);
 		this.pMove2 = new PMove(this.actionHandler);
 		this.add(this.pMove2);
 		
 		this.pSincheong = new PResult();
-		scrollPane = new JScrollPane(this.pSincheong);
-		this.add(scrollPane);
+//		scrollPane = new JScrollPane(this.pSincheong);
+//		this.add(scrollPane);
+		this.add(pSincheong);
 	}
 
 	public void initialize(VUser vUser) {
@@ -62,8 +63,7 @@ public class PContentPanel extends JPanel {
 		this.pMiridamgi.initialize(vUser.getUserId() + EConfiguration.miridamgiFilePostfix.getText());
 		this.pSincheong.initialize(vUser.getUserId() + EConfiguration.sincheongFilePostfix.getText());
 		
-		this.pSelection.initialize(this.pMiridamgi.getGangjwas(), this.pSincheong.getGangjwas());
-//		this.pSelection.getHakgwaSelection().getHakgwa().listClick();
+		this.pSelection.initialize(this.pMiridamgi, this.pSincheong);
 		
 	}
 	
@@ -79,9 +79,11 @@ public class PContentPanel extends JPanel {
 	
 	private void updateGangjwas(Object source) {
 		
-		this.pSelection.updateGangjwas(source, this.pMiridamgi.getGangjwas(), this.pSincheong.getGangjwas());
+		this.pSelection.updateGangjwas(source);
 		
 	}
+	
+
 	
 	public class ListSelectionHandler implements ListSelectionListener {
 		@Override
@@ -94,32 +96,28 @@ public class PContentPanel extends JPanel {
 	// button event handler
 	/////////////////////////////
 	
+	private void moveGangjwas(PGangjwaContainer source, PGangjwaContainer target) {
+		Vector<VGangjwa> vSelectedGangjwas = source.removeSelectedGangjwas();
+		target.addGangjwas(vSelectedGangjwas);
+	}
+
 	private void moveGangjwas(Object source) {
-		Vector<VGangjwa> vSelectedGangjwas;
+		
 		
 		if(source.equals(this.pMove1.getMoveRightButton())) {
 			
-			vSelectedGangjwas = this.pSelection.getSelectedGangjwas();
-			vSelectedGangjwas = this.pMiridamgi.removeDuplicated(vSelectedGangjwas);
-			vSelectedGangjwas = this.pSincheong.removeDuplicated(vSelectedGangjwas);
-			
-			this.pMiridamgi.addGangjwas(vSelectedGangjwas);
-//			this.pSelection.getHakgwaSelection().getHakgwa().listClick();
+			this.moveGangjwas(this.pSelection, this.pMiridamgi);
+						
 			
 		} else if(source.equals(this.pMove1.getMoveLeftButton())) {
-			
-			vSelectedGangjwas = this.pMiridamgi.removeGangjwas();
-//			this.pSelection.getHakgwaSelection().getHakgwa().listClick();
+			this.moveGangjwas(this.pMiridamgi, this.pSelection);
 			
 		} else if(source.equals(this.pMove2.getMoveRightButton())) {
+			this.moveGangjwas(this.pMiridamgi, this.pSincheong);
 			
-			vSelectedGangjwas = this.pMiridamgi.removeGangjwas();
-			this.pSincheong.addGangjwas(vSelectedGangjwas);
-			
+
 		} else if(source.equals(this.pMove2.getMoveLeftButton())) {
-			
-			vSelectedGangjwas = this.pSincheong.removeGangjwas();
-			this.pMiridamgi.addGangjwas(vSelectedGangjwas);			
+			this.moveGangjwas(this.pSincheong, this.pMiridamgi);
 			
 		}
 		

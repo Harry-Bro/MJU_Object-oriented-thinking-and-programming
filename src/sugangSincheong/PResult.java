@@ -2,28 +2,42 @@ package sugangSincheong;
 
 import java.util.Vector;
 
+import javax.swing.BoxLayout;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import constants.Constants.EPResult;
 import control.CResult;
 import valueObject.VGangjwa;
 
-public class PResult extends JTable {
+public class PResult extends PGangjwaContainer {
 	
 	private static final long serialVersionUID = 1L;
 
+	private JTable table;
 	private DefaultTableModel tableModel;
 	private Vector<VGangjwa> vGangjwas;
 	
-	public PResult() {
+	public PResult() {	
+		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		this.table = new JTable();
+		
+		JScrollPane scrollpane = new JScrollPane();
+		scrollpane.setViewportView(this.table);
+				
+		
 		Vector<String> header = new Vector<>();
-		header.addElement("°­ÁÂ¹øÈ£");
-		header.addElement("°­ÁÂ¸í");
+		header.addElement(EPResult.gangjwaNo.getText());
+		header.addElement(EPResult.gangjwaName.getText());
 		
 		this.tableModel = new DefaultTableModel(header, 0);
-		this.setModel(tableModel);
+		this.table.setModel(tableModel);
 		
 		this.vGangjwas = new Vector<>();
+		
+		scrollpane.add(table);
+		this.add(scrollpane);
 	}
 
 	public void initialize(String fileName) {
@@ -55,7 +69,7 @@ public class PResult extends JTable {
 		}
 		
 		if(this.vGangjwas.size() > 0) {
-			this.getSelectionModel().addSelectionInterval(0, 0);
+			this.table.getSelectionModel().addSelectionInterval(0, 0);
 		}
 	}
 
@@ -67,8 +81,8 @@ public class PResult extends JTable {
 		
 	}
 	
-	public Vector<VGangjwa> removeGangjwas() {
-		int[] indices = this.getSelectedRows();
+	public Vector<VGangjwa> removeSelectedGangjwas() {
+		int[] indices = this.table.getSelectedRows();
 		Vector<VGangjwa> vRemovedGangjwas = new Vector<>();
 		
 		for(int i=indices.length-1; i>= 0; i--) {
