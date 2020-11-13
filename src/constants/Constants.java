@@ -1,14 +1,13 @@
 package constants;
 
+import java.util.Vector;
+
 public class Constants {
 	
-	
-
-	public enum EConfiguration {
-		
-		miridamgiFilePostfix("M"),
-		sincheongFilePostfix("S"),
-		rootFileName("root");
+	public enum EConfiguration{
+		rootFileName("root"),
+		miridmagiFilePostfix("M"),
+		sincheongFilePostfix("S");
 		
 		private String text;
 		private EConfiguration(String text) {
@@ -20,7 +19,6 @@ public class Constants {
 		public int getInt() {
 			return Integer.parseInt(text);
 		}
-		
 	}
 	
 	public enum ELoginDialog {
@@ -32,8 +30,7 @@ public class Constants {
 		sizePasswordText("10"),
 		okButtonLabel("ok"),
 		cancelButtonLabel("cancel"),
-		
-		noAccountInfo("회원 정보가 존재하지 않음."),
+		noAccountInfo("회원 정보가 존재하지 않습니다."),
 		loginFailed("아이디나 비밀번호가 다릅니다.");
 		
 		private String text;
@@ -50,20 +47,16 @@ public class Constants {
 
 	
 	public enum EMainFrame {
-		
 		width("1000"),
 		height("600");
 		
 		private String text;
-	
 		private EMainFrame(String text) {
 			this.text = text;
 		}
-		
 		public String getText() {
 			return this.text;
 		}
-		
 		public int getInt() {
 			return Integer.parseInt(text);
 		}
@@ -81,32 +74,6 @@ public class Constants {
 		public String getText() {
 			return this.text;
 		}
-	}
-	
-	public enum EToolBar{
-		
-		BASKET("BASKET", "data/BASKET.png"),
-		ENROLLMENT("actionHandler", "data/ENROLLMENT.png"),
-		PERSONAL("PERSONAL", "data/PERSONAL.png"),
-		GRADE("GRADE", "data/GRADE.png");
-		
-		
-		private String text;
-		private String path;
-
-		EToolBar(String text, String path){
-			this.text = text;
-			this.path=path;
-		}
-
-		public String getText() {
-			return this.text;
-		}
-		
-		public String getPath() {
-			return this.path;
-		}
-
 	}
 	
 	public enum EFileMenu {
@@ -143,14 +110,37 @@ public class Constants {
 		}
 	}
 	
-	public enum EDirecory {
+	public enum EToolBar{
+		Miridamgi("미리담기", "data/미리담기.png"),
+		Sugangsincheong("수강신청", "data/수강신청.png"),
+		PersonalInfo("개인정보", "data/개인정보.png"),
+		Grade("성적", "data/성적.png");
+			
+		private String text;
+		private String path;
+
+		EToolBar(String text, String path){
+			this.text = text;
+			this.path=path;
+		}
+
+		public String getText() {
+			return this.text;
+		}
 		
-		campus("캠퍼"),
+		public String getPath() {
+			return this.path;
+		}
+
+	}
+	
+	public enum EDirectory{
+		campus("캠퍼스"),
 		college("대학"),
-		hakgwa("학과");
+		hackgwa("학과");
 		
 		private String text;
-		private EDirecory(String text) {
+		private EDirectory(String text) {
 			this.text = text;
 		}
 		public String getText() {
@@ -159,14 +149,12 @@ public class Constants {
 		public int getInt() {
 			return Integer.parseInt(text);
 		}
-		
 	}
-	
-	public enum EPGangjwaSelection {
-		
+
+	public enum EPGangjwaSelection{
 		gangjwaNo("강좌번호"),
-		gangjwaName("강좌이름"),
-		damdangGyosu("담당"),
+		gangjwaName("강좌명"),
+		damdangGyosu("담당교수"),
 		hakjeom("학점"),
 		time("시간");
 		
@@ -181,11 +169,10 @@ public class Constants {
 			return Integer.parseInt(text);
 		}
 	}
-	
-	public enum EPResult {
-		
+
+	public enum EPResult{
 		gangjwaNo("강좌번호"),
-		gangjwaName("강좌이름");
+		gangjwaName("강좌명");
 		
 		private String text;
 		private EPResult(String text) {

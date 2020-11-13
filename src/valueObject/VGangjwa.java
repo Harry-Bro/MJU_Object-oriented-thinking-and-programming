@@ -1,7 +1,5 @@
 package valueObject;
 
-import java.util.Vector;
-
 public class VGangjwa {
 	private String id;
 	private String name;
@@ -9,25 +7,34 @@ public class VGangjwa {
 	private String credit;
 	private String time;
 	
-//	 생성자로 값을 초기화 시켜줌
-
-	public VGangjwa(String number, String name, 
-			String professor, String credit, String time) {
-		this.id = number;
+	public VGangjwa(String id, String name, String lecturer, String credit, String time) {	
+		this.id = id;
 		this.name = name;
-		this.lecturer = professor;
+		this.lecturer = lecturer;
+		this.credit = credit;
+		this.time = time;
+	}
+	
+	public VGangjwa() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void initialize(String id, String name, String lecturer, String credit, String time) {
+		this.id = id;
+		this.name = name;
+		this.lecturer = lecturer;
 		this.credit = credit;
 		this.time = time;
 		
 	}
-
-	public String getNumber() {
+	
+	public String getId() {
 		return id;
 	}
 	public String getName() {
 		return name;
 	}
-	public String getProfessor() {
+	public String getLecturer() {
 		return lecturer;
 	}
 	public String getCredit() {
@@ -36,4 +43,6 @@ public class VGangjwa {
 	public String getTime() {
 		return time;
 	}
+
+	
 }

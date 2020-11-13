@@ -13,7 +13,6 @@ public class PMainFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private WindowListener windowListener;
-	
 	private PMenuBar pMenuBar;
 	private PToolBar pToolBar;
 	private PSugangSincheongPanel pMainPanel;
@@ -21,6 +20,7 @@ public class PMainFrame extends JFrame {
 	// constructor
 	public PMainFrame() {
 		// set attributes
+		this.setTitle("수강신청");
 		this.setSize(
 				Constants.EMainFrame.width.getInt(), 
 				Constants.EMainFrame.height.getInt()
@@ -28,21 +28,20 @@ public class PMainFrame extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		this.setLayout(new BorderLayout());
-		
-		// ADD Window listener
 		this.windowListener = new WindowHandler();
 		this.addWindowListener(windowListener);
+		this.setLayout(new BorderLayout());
 		
 		// create and register components
 		this.pMenuBar = new PMenuBar();
-		this.setJMenuBar(this.pMenuBar);		
+		this.setJMenuBar(this.pMenuBar);
 		
 		this.pToolBar = new PToolBar();
 		this.add(this.pToolBar, BorderLayout.NORTH);
 		
 		this.pMainPanel = new PSugangSincheongPanel();
 		this.add(this.pMainPanel, BorderLayout.CENTER);	
+
 	}
 	
 	public void initialize(VUser vUser) {
@@ -52,56 +51,27 @@ public class PMainFrame extends JFrame {
 	}
 	
 	private void save() {
-		
 		this.pMainPanel.save();
-		
 	}
 	
-	public class WindowHandler implements WindowListener {
+	private class WindowHandler implements WindowListener{
 
 		@Override
-		public void windowOpened(WindowEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
+		public void windowOpened(WindowEvent e) {}
 		@Override
 		public void windowClosing(WindowEvent e) {
-			// 종료되는 중 
-			
 			save();
-			
 		}
-
 		@Override
-		public void windowClosed(WindowEvent e) {
-			// 완전히 종료된 후 불리는 
-			
-		}
-
+		public void windowClosed(WindowEvent e) {}
 		@Override
-		public void windowIconified(WindowEvent e) {
-			// 윈도우 최소화 됐을 때 
-			
-		}
-
+		public void windowIconified(WindowEvent e) {}
 		@Override
-		public void windowDeiconified(WindowEvent e) {
-			// 윈도우 최소화에서 다시 돌아올 
-			
-		}
-
+		public void windowDeiconified(WindowEvent e) {}
 		@Override
-		public void windowActivated(WindowEvent e) {
-			// 창이 활성화 되어있을 때 
-			
-		}
-
+		public void windowActivated(WindowEvent e) {}
 		@Override
-		public void windowDeactivated(WindowEvent e) {
-			// 윈도우 활성화 되어 있지 않을 때 
-			
-		}
+		public void windowDeactivated(WindowEvent e) {}
 		
 	}
 }

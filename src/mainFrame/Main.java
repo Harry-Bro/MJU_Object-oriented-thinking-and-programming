@@ -3,42 +3,53 @@ package mainFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import constants.Constants;
 import valueObject.VUser;
 
 public class Main {
-
-	private PLoginDialog pLoginDialog;
-	private PMainFrame pMainFrame;
 	
-	public Main() {
-		ActionHandler actionHandler = new ActionHandler();
-		this.pLoginDialog = new PLoginDialog(actionHandler);
-		this.pLoginDialog.setVisible(true);	
-	}
+  private PLoginDialog pLoginDialog;
+  private PMainFrame pMainFrame;
+  private ActionHandler actionHandler;
+  
+  public Main() {  // 먼저 만들고나서 initialize하는것 
+	   actionHandler = new ActionHandler();	
+		pLoginDialog = new PLoginDialog(actionHandler);
+		pLoginDialog.setVisible(true);	
+  }
 	
-	private void initialize() {
-		this.pLoginDialog.initialize();
-	}
+  private void initialize() {
+	  pLoginDialog.initialize();
+  }
 	
-	private void validateUser(String actionCommand) {
-		VUser vUser = pLoginDialog.validateUser(actionCommand);
-		if (vUser != null) {			
-			this.pMainFrame = new PMainFrame();
-			this.pMainFrame.setVisible(true);
-			this.pMainFrame.initialize(vUser);
-			this.pLoginDialog.dispose();
+	private void validateUser(String actioncommand) {
+		VUser vUser = pLoginDialog.validateUser(actioncommand);
+		if(vUser!=null) {
+			pMainFrame = new PMainFrame(); //new 에서 데이터보내지말것
+			pMainFrame.setVisible(true);
+			pMainFrame.initialize(vUser); //initialize에서 데이터보냄
 		}
+		this.pLoginDialog.dispose();	
 	}
 	
 	public class ActionHandler implements ActionListener {
-		@Override
+
 		public void actionPerformed(ActionEvent event) {
-			validateUser(event.getActionCommand());
-		}		
+
+			if (event.getActionCommand().equals(Constants.ELoginDialog.okButtonLabel.getText())) {
+				validateUser(event.getActionCommand());
+			}	
+		}
+
 	}
-	
-	public static void main(String[] args) {		
-		Main main = new Main();
-		main.initialize();		
-	}
-}
+	  public static void main(String[] args) {
+			
+			Main main = new Main();
+			main.initialize();
+			
+		}
+	  }
+
+	 
+
+

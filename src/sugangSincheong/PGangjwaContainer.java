@@ -9,10 +9,8 @@ import valueObject.VGangjwa;
 public abstract class PGangjwaContainer extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	
-	
 
 	public abstract Vector<VGangjwa> removeSelectedGangjwas();
-	public abstract void addGangjwas(Vector<VGangjwa> vSelectedGangjwas);
+	public void addGangjwas(Vector<VGangjwa> vSelectedGangjwas) {};
 
 }

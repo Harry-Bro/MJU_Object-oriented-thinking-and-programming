@@ -10,113 +10,109 @@ import javax.swing.table.DefaultTableModel;
 import constants.Constants.EPResult;
 import control.CResult;
 import valueObject.VGangjwa;
+import valueObject.VUser;
 
 public class PResult extends PGangjwaContainer {
 	
-	private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 
-	private JTable table;
-	private DefaultTableModel tableModel;
-	private Vector<VGangjwa> vGangjwas;
-	
-	public PResult() {	
-		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+private JTable table;
+
+private DefaultTableModel tableModel;
+//public Vector<String> header;
+public Vector<VGangjwa> vGangjwas = new Vector<VGangjwa>();
+public Vector<VGangjwa> vDeleteGangjwas;
+public VUser vUser;
+String title;
+
+
+	public PResult(String title) {
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.table = new JTable();
+		JScrollPane scrollPane = new JScrollPane();
 		
-		JScrollPane scrollpane = new JScrollPane();
-		scrollpane.setViewportView(this.table);
-				
-		
-		Vector<String> header = new Vector<>();
-		header.addElement(EPResult.gangjwaNo.getText());
-		header.addElement(EPResult.gangjwaName.getText());
-		
+		this.setName(title);
+		Vector<String> header = new Vector<String>();
+		for(EPResult EPResult : EPResult.values()) {
+		header.addElement(EPResult.getText());
+		}
 		this.tableModel = new DefaultTableModel(header, 0);
-		this.table.setModel(tableModel);
-		
-		this.vGangjwas = new Vector<>();
-		
-		scrollpane.add(table);
-		this.add(scrollpane);
+		this.table.setModel(this.tableModel);
+
+		scrollPane.setViewportView(this.table);
+		this.add(scrollPane);
 	}
 
 	public void initialize(String fileName) {
-		
 		CResult cResult = new CResult();
 		this.vGangjwas = cResult.get(fileName);
 		this.updateTableData();
 		
 	}
 	
+
+	public Vector<VGangjwa> getGangjwas(){
+		return this.vGangjwas;
+	}
+	
+
 	public void save(String fileName) {
-		
 		CResult cResult = new CResult();
 		cResult.save(fileName, this.vGangjwas);
 		
-		
+	}
+	
+	public Vector<VGangjwa> removeDuplicated(Vector<VGangjwa> vSelectedGangjwas) {
+		for(int index = vSelectedGangjwas.size()-1; index>=0; index--) {
+			for(VGangjwa vGangjwa : this.vGangjwas) {
+				if(vSelectedGangjwas.get(index).getId().equals(vGangjwa.getId())){
+					vSelectedGangjwas.remove(index);
+					break;
+				}
+			}
+		}
+		return vSelectedGangjwas;
 	}
 	
 	private void updateTableData() {
-		this.tableModel.setRowCount(0);
-		
-		for(VGangjwa vGangjwa : this.vGangjwas) {
-			Vector<String> row = new Vector<>();
-			
-			row.add(vGangjwa.getNumber());
+		this.tableModel.setRowCount(0); // √ ±‚»≠ 
+		for(VGangjwa vGangjwa : vGangjwas) {
+			Vector<String> row = new Vector<String>();
+			row.add(vGangjwa.getId());
 			row.add(vGangjwa.getName());
-			this.tableModel.addRow(row);
-			
+			this.tableModel.addRow(row);	
 		}
-		
-		if(this.vGangjwas.size() > 0) {
+		if(vGangjwas.size()>0) {
 			this.table.getSelectionModel().addSelectionInterval(0, 0);
 		}
 	}
 
 	public void addGangjwas(Vector<VGangjwa> vSelectedGangjwas) {
 		
-//		this.moveSelectedGangjwas(vSelectedGangjwas);
-		this.vGangjwas.addAll(vSelectedGangjwas);
-		this.updateTableData();		
-		
-	}
-	
-	public Vector<VGangjwa> removeSelectedGangjwas() {
-		int[] indices = this.table.getSelectedRows();
-		Vector<VGangjwa> vRemovedGangjwas = new Vector<>();
-		
-		for(int i=indices.length-1; i>= 0; i--) {
-			VGangjwa vRemovedGangjwa = this.vGangjwas.remove(indices[i]);
-			vRemovedGangjwas.add(vRemovedGangjwa);
-		}
-		
+		Vector<VGangjwa> vRemoveGangjwas = removeDuplicated(vSelectedGangjwas);
+		this.vGangjwas.addAll(vRemoveGangjwas);
 		this.updateTableData();
-		return vRemovedGangjwas;
-	}
-
-	public Vector<VGangjwa> getGangjwas() {
-
-		return this.vGangjwas;
 	}
 	
-	public Vector<VGangjwa> removeDuplicated(Vector<VGangjwa> vSelectedGangjwas) {
-		
-		
-		for(int i = vSelectedGangjwas.size()-1; i>=0; i--) {
-			
-			for(VGangjwa vGangjwa : this.vGangjwas) {
-				if(vSelectedGangjwas.get(i).getNumber().equals(vGangjwa.getNumber())) {
-					vSelectedGangjwas.remove(i);
-					break;
-				}
-			}
-			
-		}
-		return vSelectedGangjwas;
+
+
+	public Vector<VGangjwa> removeSelectedGangjwas() {
+	int[] indices = this.table.getSelectedRows();
+	Vector<VGangjwa> vRemoveGangjwas = new Vector<VGangjwa>();
+	for(int i=indices.length-1; i>=0; i--) {
+		VGangjwa vRemoveGangjwa = this.vGangjwas.remove(indices[i]);
+		vRemoveGangjwas.add(vRemoveGangjwa);
+	}
+	this.updateTableData();
+	return vRemoveGangjwas;
 		
 	}
+	public Vector<VGangjwa> getvDeleteGangjwas(){
+		return this.vDeleteGangjwas;
+	}
+
 
 	
-	
-	
+
+
 }

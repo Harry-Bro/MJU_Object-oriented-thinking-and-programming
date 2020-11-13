@@ -32,10 +32,12 @@ public class PLoginDialog extends JDialog {
 		
 	public PLoginDialog(ActionHandler actionHandler) {
 		// attributes
-		this.setSize(ELoginDialog.width.getInt(), ELoginDialog.height.getInt());
+		this.setSize(ELoginDialog.width.getInt(), 
+				ELoginDialog.height.getInt());
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
-
+		
+		this.setTitle("로그인");
 		this.setLayout(new FlowLayout());
 		
 		// components
@@ -64,33 +66,37 @@ public class PLoginDialog extends JDialog {
 			line3.add(this.cancelButton);
 		this.add(line3);
 		
-		// control
 		this.cLogin = new CLogin();
 		this.cUser = new CUser();
 	}
 	
 	public void initialize() {
-	}	
-
-	public VUser validateUser(String actionCommand) {
+	}
+	
+	public VUser validateUser(String actioncommand) {
 		VUser vUser = null;
-		if (actionCommand.contentEquals(this.okButton.getText())) {
-			VLogin vLogin = new VLogin(this.UserIdTextField.getText(), this.passwordTextField.getText());	
-
-			boolean bLoginSuccess = cLogin.validate(vLogin);			
-			if (bLoginSuccess) {
-				
-				vUser = cUser.getUser(vLogin.getUserId());			
-				if (vUser == null) {
-					// 시스템 에러 - 회원 정보가 존재 하지 않음
-					JOptionPane.showConfirmDialog(this, ELoginDialog.noAccountInfo.getText());
-				}
-			} else {
-				// 
-				JOptionPane.showConfirmDialog(this, ELoginDialog.loginFailed.getText());
+		if(actioncommand.contentEquals(this.okButton.getText())){
+		VLogin vLogin = new VLogin();	
+		vLogin.initialize(this.UserIdTextField.getText(), this.passwordTextField.getText());
+		boolean bLoginSuccess = cLogin.validate(vLogin);
+		
+		if (bLoginSuccess) {
+		    vUser = this.cUser.getUser(vLogin.getUserId());			
+			if(vUser ==null) {
+				// 시스템 에러 - 회원 정보가 존재 하지 않음
+				JOptionPane.showMessageDialog(this, ELoginDialog.noAccountInfo.getText());
+				//return null;
 			}
+		} else {
+			//return null;
+			//틀렸을때 계속 입력갈 수 있게 하기
+			JOptionPane.showMessageDialog(this, ELoginDialog.loginFailed.getText());
+			// CLogin에서 다이얼로그띄움 아이디는 있으나 비밀번호가 틀렸거나, 회원 가입 안됨 혹은 아이디 잘 못 입력
+		}
 		}
 		return vUser;
-	}
+	
+}
 
+	
 }

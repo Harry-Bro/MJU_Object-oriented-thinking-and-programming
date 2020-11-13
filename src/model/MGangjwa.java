@@ -1,7 +1,6 @@
 package model;
 
 import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -12,9 +11,9 @@ public class MGangjwa {
 	
 	private BufferedWriter bufferWriter;
 	
-	private String number;
+	private String id;
 	private String name;
-	private String professor;
+	private String lecturer;
 	private String credit;
 	private String time;
 	
@@ -28,22 +27,22 @@ public class MGangjwa {
 		//
 		
 		this.bufferWriter = bufferWriter;
-		this.number = vGangjwa.getNumber();
+		this.id = vGangjwa.getId();
 		this.name = vGangjwa.getName();
-		this.professor = vGangjwa.getProfessor();
+		this.lecturer = vGangjwa.getLecturer();
 		this.credit = vGangjwa.getCredit();
 		this.time = vGangjwa.getTime();
 				
 	}
 
-	public String getNumber() {
-		return number;
+	public String getId() {
+		return id;
 	}
 	public String getName() {
 		return name;
 	}
-	public String getProfessor() {
-		return professor;
+	public String getLecturer() {
+		return lecturer;
 	}
 	public String getCredit() {
 		return credit;
@@ -54,21 +53,20 @@ public class MGangjwa {
 
 	public void read() {	
 		
-		this.number = scanner.next();
+		this.id = scanner.next();
 		this.name = scanner.next();
-		this.professor = scanner.next();
+		this.lecturer = scanner.next();
 		this.credit = scanner.next();
 		this.time = scanner.next();
 	}
 
 	public void save() {
-		// TODO Auto-generated method stub
 
 		try {
 			
-			this.bufferWriter.write(this.number + " ");
+			this.bufferWriter.write(this.id + " ");
 			this.bufferWriter.write(this.name + " ");
-			this.bufferWriter.write(this.professor + " ");
+			this.bufferWriter.write(this.lecturer + " ");
 			this.bufferWriter.write(this.credit + " ");
 			this.bufferWriter.write(this.time + "\n");
 			
