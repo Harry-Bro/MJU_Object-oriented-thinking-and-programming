@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import model.DataAccessObject;
 import model.MDirectory;
+import model.MModel;
 import valueObject.VDirectory;
 
 public class CDirectory {
@@ -12,15 +13,18 @@ public class CDirectory {
 		
 	}
 	
-	public Vector<VDirectory> getData(String fileName){
+	public Vector<VDirectory> getData(String fileName)  {
 		DataAccessObject dataAccessObject = new DataAccessObject();
-		Vector<MDirectory> mDirectories = dataAccessObject.getDirectories(fileName);
+		Vector<MModel> mModels = dataAccessObject.getModels(fileName, MDirectory.class);
 		
-		Vector<VDirectory> vDirectories = new Vector<VDirectory>();
-		for(MDirectory mDirectory : mDirectories) {
-			VDirectory vDirectory = new VDirectory();
-			vDirectory.initialize(mDirectory.getName(),
-					mDirectory.getFileName());
+		Vector<VDirectory> vDirectories = new Vector<>();
+		for(MModel mModel : mModels) {
+			MDirectory mMirectory = (MDirectory) mModel;
+			VDirectory vDirectory = new VDirectory(
+					mMirectory.getName(),
+					mMirectory.getFileName()
+			);
+			
 			vDirectories.add(vDirectory);
 		}
 		return vDirectories;

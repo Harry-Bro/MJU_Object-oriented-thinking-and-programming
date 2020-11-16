@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import constants.Constants.EConfiguration;
 import constants.Constants.EDirectory;
 import control.CDirectory;
+import model.MDirectory;
 import valueObject.VDirectory;
 
 public class PHackgwaSelection extends JPanel {

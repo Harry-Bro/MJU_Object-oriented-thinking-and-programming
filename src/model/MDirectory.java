@@ -2,7 +2,7 @@ package model;
 
 import java.util.Scanner;
 
-public class MDirectory {
+public class MDirectory extends MModel{
 	private Scanner scanner;
 	
 	private String id;
