@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 import model.DataAccessObject;
 import model.MLogin;
+import model.MModel;
 import valueObject.VLogin;
 
 public class CLogin {
@@ -12,9 +13,10 @@ public class CLogin {
 		boolean bLoginSuccess = false;
 		
 		DataAccessObject dataAccessObject = new DataAccessObject();
-		MLogin mLogin = dataAccessObject.getLogin(vLogin.getUserId());
+		MModel mModel = dataAccessObject.getAModel("userInfo/userId", MLogin.class, vLogin.getUserId());
 		
-		if (mLogin != null) {
+		if (mModel != null) {
+			MLogin mLogin = (MLogin) mModel;
 			if (vLogin.getPassword().contentEquals(mLogin.getPassword())) {
 				bLoginSuccess = true;
 			} else {

@@ -28,8 +28,8 @@ public class Main {
 			pMainFrame = new PMainFrame(); //new 에서 데이터보내지말것
 			pMainFrame.setVisible(true);
 			pMainFrame.initialize(vUser); //initialize에서 데이터보냄
+			this.pLoginDialog.dispose();	
 		}
-		this.pLoginDialog.dispose();	
 	}
 	
 	public class ActionHandler implements ActionListener {

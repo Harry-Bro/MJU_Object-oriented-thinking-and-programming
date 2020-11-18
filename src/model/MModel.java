@@ -6,9 +6,10 @@ public abstract class MModel {
 		
 	}
 
-	public abstract void read();
-//	public abstract String getName();
-//	public abstract String getFileName();
+	public String read() {
+		return null;
+	};
+
 	
 	
 	

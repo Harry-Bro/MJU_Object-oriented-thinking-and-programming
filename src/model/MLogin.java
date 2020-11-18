@@ -2,14 +2,15 @@ package model;
 
 import java.util.Scanner;
 
-public class MLogin {
+public class MLogin extends MModel {
 	private Scanner scanner;
+	
 	private String userId;
 	private String password;
 	
-	public MLogin(Scanner scanner, String userId) {
+	public MLogin(Scanner scanner) {
 		this.scanner = scanner;
-		this.userId = userId;
+		
 	}
 
 	public String getUserId() {
@@ -19,13 +20,10 @@ public class MLogin {
 		return password;
 	}
 
-	public boolean read() {		
-		String userId = scanner.next();
+	public String read() {		
+
+		this.userId = scanner.next();
 		this.password = scanner.next();
-		
-		if (this.userId.contentEquals(userId)) {
-			return true;
-		}
-		return false;
+		return this.userId;
 	}
 }

@@ -1,6 +1,7 @@
 package control;
 
 import model.DataAccessObject;
+import model.MModel;
 import model.MUser;
 import valueObject.VUser;
 
@@ -10,8 +11,10 @@ public class CUser {
 		VUser vUser = null;
 		
 		DataAccessObject dataAccessObject = new DataAccessObject();
-		MUser mUser = dataAccessObject.getUser(userId);
-		if (mUser != null) {
+		MModel mModel = dataAccessObject.getAModel("userInfo/"+userId, MUser.class, userId);
+		
+		if (mModel != null) {
+			MUser mUser = (MUser) mModel;
 			vUser = new VUser(mUser.getUserId(), mUser.getName(), mUser.getAddress());
 		}
 		return vUser;

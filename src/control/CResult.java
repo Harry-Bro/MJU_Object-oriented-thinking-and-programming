@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import model.DataAccessObject;
 import model.MGangjwa;
+import model.MModel;
 import valueObject.VGangjwa;
 
 public class CResult {
@@ -17,10 +18,11 @@ public class CResult {
 	}
 	public Vector<VGangjwa> get(String fileName) {
 		DataAccessObject dataAccessObject = new DataAccessObject();
-		Vector<MGangjwa> mGangjwas= dataAccessObject.getResults(fileName);
+		Vector<MModel> mModels = dataAccessObject.getModels(fileName, MGangjwa.class);
 		
 		Vector<VGangjwa> vGangjwas = new Vector<VGangjwa>();
-		for(MGangjwa mGangjwa : mGangjwas) {
+		for(MModel mModel : mModels) {
+			MGangjwa mGangjwa = (MGangjwa) mModel;
 			VGangjwa vGangjwa = new VGangjwa(
 				mGangjwa.getId(),
 				mGangjwa.getName(),

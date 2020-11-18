@@ -2,16 +2,15 @@ package model;
 
 import java.util.Scanner;
 
-public class MUser {
+public class MUser extends MModel{
 	private Scanner scanner;
 	
 	private String userId;
 	private String name;
 	private String address;
 	
-	public MUser(Scanner scanner, String userId) {
-		this.scanner = scanner;
-		this.userId = userId;
+	public MUser(Scanner scanner) {
+		this.scanner = scanner;		
 	}
 
 	public String getUserId() {
@@ -24,14 +23,12 @@ public class MUser {
 		return address;
 	}
 
-	public boolean read() {		
-		String userId = scanner.next();
+	public String read() {		
+		this.userId = scanner.next();
 		this.name = scanner.next();
 		this.address = scanner.next();
 		
-		if (this.userId.contentEquals(userId)) {
-			return true;
-		}
-		return false;
+		return this.userId;
+
 	}
 }
