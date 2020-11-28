@@ -20,9 +20,10 @@ public class CGangjwa {
  		Vector<VGangjwa> vGangjwas = new Vector<VGangjwa>();
  		for(MModel mModel : mModels) {
  			MGangjwa mGangjwa = (MGangjwa) mModel;
- 			VGangjwa vGangjwa = new VGangjwa();
- 			vGangjwa.initialize(mGangjwa.getId(),mGangjwa.getName(),mGangjwa.getLecturer(),
- 					mGangjwa.getCredit(), mGangjwa.getTime());
+ 			VGangjwa vGangjwa = new VGangjwa(
+ 					mGangjwa.getId(),mGangjwa.getName(),mGangjwa.getLecturer(),
+ 					mGangjwa.getCredit(), mGangjwa.getTime()
+ 			); 			
  			vGangjwas.add(vGangjwa);
  		}
  		return vGangjwas;

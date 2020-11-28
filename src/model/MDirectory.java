@@ -1,16 +1,14 @@
 package model;
 
-import java.util.Scanner;
-
 public class MDirectory extends MModel{
-	private Scanner scanner;
+	
 	
 	private String id;
 	private String name;
     private String fileName;
     
-    public MDirectory(Scanner scanner) {
-    	this.scanner=scanner;
+    public MDirectory() {
+    	
     }
         
     public String getId() {
@@ -23,10 +21,10 @@ public class MDirectory extends MModel{
     	return fileName;
     }
     
-    public String read() {		
-		this.id = scanner.next();
-		this.name = scanner.next();
-		this.fileName = scanner.next();
-		return null;
-	}
+//    public String read(Scanner scanner) {		
+//		this.id = scanner.next();
+//		this.name = scanner.next();
+//		this.fileName = scanner.next();
+//		return this.id;
+//	}
 }
